@@ -1,0 +1,18 @@
+Root Entry
+DataSpaces
+Version
+DataSpaceMap
+Microsoft.Container.DataSpaces
+EncryptedPackage*
+DRMEncryptedDataSpace
+DRMEncryptedTransform
+DataSpaceInfo
+TransformInfo
+Primary
+EncryptedPackage
+SummaryInformation
+EncryptedSIHash
+{C73DFACD-061F-43B0-8B64-0C620D2A8B50}>
+Microsoft.Metadata.DRMTransform
+DocumentSummaryInformation
+EncryptedDSIHash

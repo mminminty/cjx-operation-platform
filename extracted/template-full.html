@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="th"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJx ปฏิบัติการ — Mobile (Standalone)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* fallback */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url("0222250b-ff9a-4a20-a867-99a31202c197") format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+<style>/* ============================================================
+   CJ Express (CJx) Design System — Global entry point
+   Consumers link THIS file. Import order only; no rules here.
+   ============================================================ */
+
+/* ============================================================
+   CJ Express (CJx) — Webfonts
+   Brand typeface: "Anuphan" (official CJx font; Thai + Latin
+   variable font, weights 100–700) — self-hosted from assets/fonts.
+   Icons: "Material Symbols Outlined" (Google) — carried from the
+   Operation Platform codebase.
+   ============================================================ */
+
+/* Icon font — @import MUST precede all style rules (incl. @font-face) */
+/* fallback */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url("0222250b-ff9a-4a20-a867-99a31202c197") format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* Anuphan — variable font (full weight axis) */
+@font-face {
+  font-family: 'Anuphan';
+  src: url("1ff0a587-6311-472f-ad0d-9e716108ef0a") format('truetype');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Icon defaults */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================================
+   CJ Express (CJx) — Color Tokens
+   Base brand palette + neutral scale + semantic / status aliases
+   Brand source: assets/brand/corporate-colors.png
+   ============================================================ */
+
+:root {
+  /* ---- Brand core (from corporate_colors.png) ---- */
+  --cjx-yellow: #ffdc00;   /* Primary — CJx Yellow  */
+  --cjx-green:  #009d4f;   /* CJx Green             */
+  --cjx-red:    #ee2e3c;   /* CJx Red               */
+  --cjx-blue:   #194793;   /* CJx Blue              */
+  --cjx-brown:  #301912;   /* CJx Brown / mascot ink*/
+
+  /* ---- Yellow ramp (primary scale) ---- */
+  --yellow-50:  #fffdf0;
+  --yellow-100: #fff8d1;
+  --yellow-200: #ffefa3;
+  --yellow-300: #ffe766;
+  --yellow-400: #ffe02e;
+  --yellow-500: #ffdc00;   /* = --cjx-yellow */
+  --yellow-600: #e6c000;   /* hover/press on yellow */
+  --yellow-700: #b89700;
+  --yellow-800: #8a7000;
+
+  /* ---- Green ramp ---- */
+  --green-50:  #e7f7ee;
+  --green-100: #c2ebd3;
+  --green-400: #1cb368;
+  --green-500: #009d4f;    /* = --cjx-green */
+  --green-600: #008544;
+  --green-700: #006a36;
+
+  /* ---- Red ramp ---- */
+  --red-50:  #fdebec;
+  --red-100: #fbcfd2;
+  --red-400: #f1535e;
+  --red-500: #ee2e3c;      /* = --cjx-red */
+  --red-600: #d11e2b;
+  --red-700: #a81620;
+
+  /* ---- Blue ramp ---- */
+  --blue-50:  #eaeff7;
+  --blue-100: #c8d4ec;
+  --blue-400: #3a64b0;
+  --blue-500: #194793;     /* = --cjx-blue */
+  --blue-600: #133a7a;
+  --blue-700: #0e2c5e;
+
+  /* ---- Navy / neutral ink (cool gray ramp) ---- */
+  --navy-900: #0b1c30;     /* darkest text / total status */
+  --navy-800: #131b2e;     /* deep navy surface */
+  --ink-900:  #0b1c30;
+  --ink-700:  #3a4453;
+  --ink-600:  #5a6472;
+  --ink-500:  #7a8494;
+  --ink-400:  #98a2b3;
+  --ink-300:  #cbd2dc;
+  --ink-200:  #e2e6ec;
+  --ink-100:  #eef1f5;
+  --ink-50:   #f7f8fa;
+  --white:    #ffffff;
+
+  /* ============================================================
+     SEMANTIC ALIASES — use these in components, not raw ramps
+     ============================================================ */
+
+  /* Primary brand */
+  --color-primary:        var(--cjx-yellow);
+  --color-primary-hover:  var(--yellow-400);
+  --color-primary-press:  var(--yellow-600);
+  --color-on-primary:     var(--navy-900);  /* dark ink reads on yellow */
+
+  /* Accent (mascot ink / strong CTA on light) */
+  --color-accent:         var(--navy-800);
+  --color-on-accent:      var(--white);
+
+  /* Surfaces */
+  --surface-page:    #f5f6f8;
+  --surface-card:    var(--white);
+  --surface-sunken:  var(--ink-100);
+  --surface-raised:  var(--white);
+  --surface-inverse: var(--navy-800);
+  --surface-wash:    var(--yellow-50);   /* faint yellow section bg */
+
+  /* Text */
+  --text-primary:    var(--ink-900);
+  --text-secondary:  var(--ink-600);
+  --text-tertiary:   var(--ink-500);
+  --text-disabled:   var(--ink-400);
+  --text-inverse:    var(--white);
+  --text-on-yellow:  var(--cjx-brown);
+
+  /* Borders */
+  --border-subtle:   var(--ink-200);
+  --border-default:  var(--ink-300);
+  --border-strong:   var(--ink-400);
+  --border-focus:    var(--cjx-blue);
+
+  /* ---- Operational status (high-scannability system) ---- */
+  --status-total-bg:     var(--navy-800);   /* Navy : งานทั้งหมด / Total   */
+  --status-total-fg:     var(--white);
+  --status-passed-bg:    var(--cjx-green);  /* Green : ผ่านแล้ว / Passed   */
+  --status-passed-fg:    var(--white);
+  --status-fix-bg:       var(--cjx-red);    /* Red : ต้องแก้ไข / Must Fix  */
+  --status-fix-fg:       var(--white);
+  --status-current-bg:   var(--cjx-yellow); /* Yellow : ตอนนี้ / Current   */
+  --status-current-fg:   var(--cjx-brown);
+  --status-pending-bg:   var(--ink-300);    /* Gray : รอ / Pending         */
+  --status-pending-fg:   var(--ink-700);
+  --status-info-bg:      var(--cjx-blue);   /* Blue : info / sales         */
+  --status-info-fg:      var(--white);
+
+  /* Feedback semantic */
+  --color-success: var(--cjx-green);
+  --color-danger:  var(--cjx-red);
+  --color-warning: var(--cjx-yellow);
+  --color-info:    var(--cjx-blue);
+
+  /* Reward / points accent */
+  --color-reward:  var(--yellow-500);
+  --color-reward-ink: var(--cjx-brown);
+
+  /* Focus ring */
+  --ring-color: color-mix(in srgb, var(--cjx-blue) 45%, transparent);
+}
+
+/* ============================================================
+   CJ Express (CJx) — Typography Tokens
+   Family: "Anuphan" (official CJx brand typeface; Thai + Latin
+   variable font, weights 100–700) for display, UI & numerics.
+   Icons: "Material Symbols Outlined".
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-display: "Anuphan", system-ui, sans-serif;
+  --font-body:    "Anuphan", system-ui, sans-serif;
+  --font-numeric: "Anuphan", system-ui, sans-serif;
+
+  /* ---- Weights (Anuphan tops out at 700/Bold) ---- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    700;
+
+  /* ---- Type scale (px) — mobile-first field UI ---- */
+  --text-display:   34px;  /* hero metric / big number   */
+  --text-h1:        26px;  /* screen title               */
+  --text-h2:        22px;  /* section header             */
+  --text-h3:        18px;  /* card title                 */
+  --text-body-lg:   17px;
+  --text-body:      16px;  /* base body                  */
+  --text-body-sm:   14px;
+  --text-label:     13px;  /* form labels / meta         */
+  --text-caption:   12px;  /* timestamps, helper         */
+  --text-overline:  11px;  /* ALL-CAPS tags / eyebrow    */
+
+  /* ---- Line heights ---- */
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed:1.65;
+
+  /* ---- Letter spacing ---- */
+  --tracking-tight:   -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.04em;
+  --tracking-caps:    0.08em;  /* overline / labels */
+}
+
+/* ============================================================
+   CJ Express (CJx) — Spacing, Radius, Sizing Tokens
+   4px base grid. Generous touch targets for field/mobile use.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (4px grid) ---- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;   /* default gutter */
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---- Layout ---- */
+  --gutter-mobile:  16px;
+  --gutter-desktop: 40px;
+  --content-max:    768px;   /* mobile reading column   */
+  --content-max-lg: 1200px;  /* desktop HQ console      */
+
+  /* ---- Touch targets (field-team ergonomics) ---- */
+  --touch-min:    44px;   /* never smaller */
+  --touch-target: 48px;   /* comfortable   */
+  --touch-large:  56px;   /* primary CTA   */
+
+  /* ---- Radii (squared-industrial, per codebase) ---- */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* ---- Border widths ---- */
+  --border-thin:   1px;
+  --border-medium: 2px;
+  --border-accent: 4px;   /* left status rail on cards */
+}
+
+/* ============================================================
+   CJ Express (CJx) — Elevation, Shadow & Motion Tokens
+   Soft, low-spread shadows on a near-white page. Snappy,
+   confident motion (active:scale press feedback per codebase).
+   ============================================================ */
+
+:root {
+  /* ---- Shadows ---- */
+  --shadow-xs:  0 1px 2px rgba(11, 28, 48, 0.06);
+  --shadow-sm:  0 1px 3px rgba(11, 28, 48, 0.08), 0 1px 2px rgba(11, 28, 48, 0.04);
+  --shadow-md:  0 4px 10px rgba(11, 28, 48, 0.08), 0 2px 4px rgba(11, 28, 48, 0.05);
+  --shadow-lg:  0 12px 24px rgba(11, 28, 48, 0.10), 0 4px 8px rgba(11, 28, 48, 0.05);
+  --shadow-xl:  0 24px 48px rgba(11, 28, 48, 0.14);
+
+  /* Yellow glow — primary CTA emphasis */
+  --shadow-yellow: 0 6px 16px rgba(255, 220, 0, 0.40);
+
+  /* Inset (pressed / sunken fields) */
+  --shadow-inset: inset 0 1px 2px rgba(11, 28, 48, 0.08);
+
+  /* ---- Motion ---- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);    /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* @kind other */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */ /* playful overshoot */
+
+  --dur-fast:   120ms;  /* @kind other */
+  --dur-base:   180ms;  /* @kind other */
+  --dur-slow:   280ms;  /* @kind other */
+
+  /* Press feedback scale (cards & buttons) */
+  --press-scale: 0.97;  /* @kind other */
+}
+
+/* ============================================================
+   CJ Express (CJx) — Base / Reset
+   Minimal element defaults wired to tokens. Components own most
+   styling; this just sets a sane, on-brand baseline.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+}
+
+p { margin: 0; }
+
+a { color: var(--cjx-blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button { font-family: inherit; cursor: pointer; }
+
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Tabular numerals utility for metrics / time / money */
+.tnum { font-variant-numeric: tabular-nums; }
+
+</style>
+<style>
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  /* Icon guard: cap each icon to a 1em box so a slow/blocked icon font can never
+     render its ligature name as long text and blow out the layout width. */
+  .material-symbols-outlined {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 1em; min-width: 1em; overflow: hidden; vertical-align: middle;
+    line-height: 1;
+  }
+  html, body {
+    margin: 0; height: 100%;
+    width: 100%; max-width: 100%;
+    overflow-x: hidden;            /* clamp: layout viewport can never widen */
+    overscroll-behavior-x: none;
+  }
+  body {
+    background: var(--surface-page);
+    display: flex; align-items: stretch; justify-content: center;
+    min-height: 100vh; min-height: 100dvh;
+  }
+  .phone {
+    width: 100%; max-width: 100vw; height: 100vh; height: 100dvh;
+    background: var(--surface-page);
+    overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .statusbar {
+    height: 36px; flex-shrink: 0; background: var(--surface-card);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 22px; font-family: var(--font-numeric); font-size: 13px; font-weight: 700;
+    color: var(--text-primary);
+  }
+  .statusbar .dots { display: flex; gap: 5px; align-items: center; }
+  .screen { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .navwrap { flex-shrink: 0; }
+  .overlay {
+    position: absolute; inset: 36px 0 0 0; background: var(--surface-page);
+    overflow-y: auto; z-index: 20;
+    animation: slideUp .26s var(--ease-out);
+  }
+  @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: none; } }
+
+  /* Tweak: น้องมุมิ mascots off → all-business mode */
+  .phone[data-mascots="off"] img[src*="mumi"] { display: none !important; }
+
+  /* Full-screen on phones by default; show the framed mockup only when the window is big enough (desktop). */
+  @media (min-width: 900px) and (pointer: fine) and (hover: hover) {
+    body { align-items: center; padding: 20px; }
+    .phone {
+      width: 390px; height: 844px;
+      border-radius: 44px; border: 12px solid #0e1622;
+      box-shadow: var(--shadow-xl);
+    }
+  }
+</style>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script>
+    // Visible error catcher — turns a silent blank page into a readable message.
+    (function () {
+      function show(msg) {
+        var r = document.getElementById('root');
+        if (r && r.children.length === 0) {
+          r.innerHTML = '<pre style="white-space:pre-wrap;margin:0;padding:22px;font:13px/1.5 ui-monospace,monospace;color:#b00020;background:#fff;">⚠️ โหลดหน้าไม่สำเร็จ / Page failed to load\n\n' +
+            String(msg).replace(/</g,'&lt;') + '</pre>';
+        }
+      }
+      window.addEventListener('error', function (e) {
+        show((e.message || e.error || 'error') + '\n' + (e.filename || '') + (e.lineno ? ':' + e.lineno : ''));
+      }, true);
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var r = document.getElementById('root');
+          if (r && r.children.length === 0) {
+            show('หน้าว่าง — สคริปต์ไม่ทำงาน (Blank: render never ran).\n' +
+              'React loaded: ' + (typeof React !== 'undefined') + '\n' +
+              'Babel loaded: ' + (typeof Babel !== 'undefined') + '\n' +
+              'DS bundle loaded: ' + (typeof window.CJExpressCJxDesignSystem_d61aba !== 'undefined') + '\n\n' +
+              'หากค่าใดเป็น false แปลว่าไฟล์นั้นโหลดไม่ได้ (เช็ค Network tab / ชื่อไฟล์ / โฟลเดอร์).');
+          }
+        }, 5000);
+      });
+    })();
+  </script>
+
+  <script src="e5723fde-5ab9-41ca-b923-fc19f344e7a5" crossorigin="anonymous"></script>
+  <script src="b3566ebc-8aa9-47c4-b610-7b4f3bb981a6" crossorigin="anonymous"></script>
+  <script src="8d88edd7-fad1-4709-a9cc-80d9b4f6cb59" crossorigin="anonymous"></script>
+  <script src="6a60de81-a849-4d43-8d87-f6f6d03bea4c"></script>
+
+  <script>
+    // Resource resolver: returns the inlined blob URL (standalone build) or the original path (live).
+    window.RES = function (id, fallback) {
+      return (window.__resources && window.__resources[id]) || fallback;
+    };
+  </script>
+
+  <script type="text/babel">
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+
+  <script type="text/babel">
+/* CJx Operation Platform — Task Timeline screen (งานวันนี้)
+   To-do tasks (current → must-fix → upcoming) shown first; completed
+   tasks are hidden behind a collapsible section. */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { TopAppBar, SummaryStat, TimeBlock, TaskCard, StatusChip, Button, Card } = NS;
+
+  // state: "current" | "fix" | "pending" | "done"
+  const TASKS = [
+    { time: "09:00", note: "ตอนนี้", state: "current", active: true, title: "เช็คลิสต์มาตรฐาน", desc: "หัวชั้น ตั้งกอง 3-Step, สื่อหน้าร้าน, สินค้าหลุดแกรม, อุณหภูมิตู้แช่, ถาดรองน้ำ", coins: 20, req: ["photo"] },
+    { time: "07:00", state: "fix", title: "ยืนยันหา RTC / หมดอายุ ของสด", coins: 15, req: ["photo"], chipText: "แก้ภายใน 07:20" },
+    { time: "09:00", state: "pending", title: "ยืนยันการใส่ป้ายโปร / ปรับราคา", desc: "ปรับราคาป้ายขาว, ป้ายโปร", coins: 10, req: ["photo"] },
+    { time: "10:15 / 14:15", state: "pending", title: "ส่งยอดขาย", desc: "ส่งรูปแดชบอร์ด MVP", coins: 10, req: ["photo"] },
+    { time: "14:00", state: "pending", title: "ส่งรูปปิดกะ", desc: "รูปเบย์ทั้งร้าน, ห้องสต็อกเรียบร้อย", coins: 10, req: ["photo"] },
+    { time: "14:45", state: "pending", title: "พนักงานเลิกงานตรงเวลา", desc: "ส่งรูปพนักงานก่อนกลับบ้าน", coins: 5, req: ["photo"] },
+    { time: "06:00", note: "เปิดร้าน", state: "done", title: "ตรวจสอบกำลังคน", desc: "มากี่คน / ใครลา", coins: 10, req: ["photo", "form"] },
+    { time: "06:30", state: "done", title: "เปิดไฟ–เครื่องปรับอากาศ", desc: "ตรวจระบบหน้าร้าน", coins: 5, req: ["photo"] },
+  ];
+
+  const ORDER = { fix: 0, current: 1, pending: 2 };
+
+  // --- Previous-shift summary detail (mirrors the ส่งต่อกะ result lists) ---
+  function ResultRow({ state, label, detail, warn, last }) {
+    const cfg = {
+      pass: { icon: "check_circle", color: "var(--cjx-green)" },
+      fail: { icon: "cancel", color: "var(--cjx-red)" },
+      pending: { icon: "radio_button_unchecked", color: "var(--text-tertiary)" },
+    }[state] || { icon: "cancel", color: "var(--cjx-red)" };
+    return (
+      <div style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "9px 0", borderBottom: last ? "none" : "1px solid var(--border-subtle)" }}>
+        <span className="material-symbols-outlined fill" style={{ fontSize: 20, color: cfg.color, flexShrink: 0, marginTop: 1 }}>{cfg.icon}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.35 }}>{label}</div>
+          {detail && <div style={{ fontSize: 12, color: warn ? "var(--cjx-red)" : "var(--text-tertiary)", marginTop: 2, lineHeight: 1.35 }}>{detail}</div>}
+        </div>
+      </div>
+    );
+  }
+  function ResultGroup({ title, rows }) {
+    return (
+      <div style={{ marginTop: 14 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".04em", color: "var(--text-tertiary)", marginBottom: 8 }}>{title}</div>
+        <Card>
+          {rows.map((r, i) => <ResultRow key={i} {...r} last={i === rows.length - 1} />)}
+        </Card>
+      </div>
+    );
+  }
+  const PREV_WORK = [
+    { state: "pass", label: "ยอดขาย 12,180 / 11,500 บาท", detail: "ถึงเป้ากะดึกแล้ว" },
+    { state: "pass", label: "ยอดขายคาเฟ่ 1,240 / 1,100 บาท", detail: "เกินเป้า 140 บาท" },
+    { state: "pass", label: "สมาชิก 2 / 2" },
+    { state: "fail", label: "งานมาตรฐาน", detail: "เหลือ 1 งานส่งต่อ", warn: true },
+  ];
+  const PREV_SALES = [
+    { state: "pass", label: "สินค้าโฟกัส 1,020 / 1,000 บาท", detail: "เกินเป้า 20 บาท" },
+    { state: "fail", label: "แลกซื้อ 720 / 1,000 บาท", detail: "ทำเพิ่ม 280 บาท", warn: true },
+  ];
+  const PREV_STANDARD = [
+    { state: "pending", label: "เคลียร์พื้นที่จัดรายการ", detail: "ส่งต่อให้กะเช้า" },
+    { state: "fail", label: "ป้ายโปรรอพิมพ์ที่ต้องติด", detail: "128 ป้าย" },
+    { state: "fail", label: "สินค้าขาดเชลฟ์", detail: "18 รายการ" },
+  ];
+
+  function TaskTimelineScreen({ onOpenTask, onMenu, onHandover, onAvatar }) {
+    const open = (title, coins) => onOpenTask(title, coins);
+    const [showDone, setShowDone] = React.useState(false);
+    const [showUpcoming, setShowUpcoming] = React.useState(false);
+    const [showPrevSummary, setShowPrevSummary] = React.useState(false);
+    const [showHandover, setShowHandover] = React.useState(true);
+    const [ackHandover, setAckHandover] = React.useState(false);
+    const [annOpen, setAnnOpen] = React.useState(true);
+    const [filter, setFilter] = React.useState(null);
+    const STAT = {
+      fix:     { tasks: ["fix"],     label: "งานที่ต้องแก้ไข" },
+      current: { tasks: ["current"], label: "งานที่ต้องทำตอนนี้" },
+      passed:  { tasks: ["done"],    label: "งานที่ผ่านแล้ว" },
+    };
+    const filtered = filter ? TASKS.filter((t) => STAT[filter].tasks.includes(t.state)) : null;
+    const toggleFilter = (key) => setFilter((cur) => (cur === key ? null : key));
+
+    // Priority (current + must-fix) shown first; upcoming (pending) collapsed.
+    const priority = TASKS.filter((t) => t.state === "current" || t.state === "fix").sort((a, b) => ORDER[a.state] - ORDER[b.state]);
+    const upcoming = TASKS.filter((t) => t.state === "pending");
+    const done = TASKS.filter((t) => t.state === "done");
+
+    const renderBlock = (t, i) => (
+      <TimeBlock key={i} time={t.time} note={t.note} state={t.state} active={t.active}>
+        <TaskCard
+          title={t.title}
+          desc={t.desc}
+          status={t.state === "done" ? "passed" : t.state}
+          requirements={t.req}
+          coins={t.coins}
+          chip={
+            t.state === "current" ? <StatusChip status="current" size="sm" />
+            : t.state === "fix" ? <StatusChip status="fix" icon="cancel" size="sm">{t.chipText || "ต้องแก้ไข"}</StatusChip>
+            : t.state === "done" ? <StatusChip status="passed" icon="check_circle" size="sm">ผ่าน</StatusChip>
+            : undefined
+          }
+          action={undefined}
+          onClick={() => open(t.title, t.coins)}
+        />
+      </TimeBlock>
+    );
+
+    const handoverBlock = (
+          <div style={{ background: "var(--blue-50)", border: "1px solid rgba(25,71,147,.22)", borderRadius: "var(--radius-md)", padding: "12px 14px", marginTop: 20, overflow: "hidden" }}>
+            <button type="button" onClick={() => setShowHandover((v) => !v)} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: 0, background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--cjx-blue)", marginBottom: showHandover ? 12 : 0 }}>
+              <span className="material-symbols-outlined fill" style={{ fontSize: 20, color: "var(--cjx-blue)", flexShrink: 0 }}>swap_horiz</span>
+              งานส่งต่อจากกะที่แล้ว
+              <span className="material-symbols-outlined" style={{ marginLeft: "auto", fontSize: 22, color: "var(--cjx-blue)", transform: showHandover ? "rotate(180deg)" : "none", transition: "transform var(--dur-base) var(--ease-out)" }}>expand_more</span>
+            </button>
+
+            {showHandover && (<div>
+
+            {/* Full previous-shift summary (collapsible) */}
+            <button
+              onClick={() => setShowPrevSummary((v) => !v)}
+              style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", marginTop: 12, padding: "11px 14px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-secondary)" }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--text-tertiary)" }}>summarize</span>
+              สรุปผลกะที่แล้ว
+              <span className="material-symbols-outlined" style={{ marginLeft: "auto", fontSize: 22, transform: showPrevSummary ? "rotate(180deg)" : "none", transition: "transform var(--dur-base) var(--ease-out)" }}>expand_more</span>
+            </button>
+            {showPrevSummary && (
+              <div>
+                <ResultGroup title="สรุปผลการทำงาน" rows={PREV_WORK} />
+                <ResultGroup title="สรุปยอดขายประจำกะ" rows={PREV_SALES} />
+                <ResultGroup title="งานมาตรฐานที่ยังทำไม่สำเร็จ" rows={PREV_STANDARD} />
+              </div>
+            )}
+            {/* Note carried over from last shift */}
+            <div style={{ marginTop: 12, display: "flex", gap: 10, padding: "12px 14px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)" }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--text-tertiary)", flexShrink: 0, marginTop: 1 }}>sticky_note_2</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".02em", color: "var(--text-tertiary)", marginBottom: 3 }}>บันทึกจากกะที่แล้ว</div>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: "var(--text-primary)", textWrap: "pretty" }}>อุณหภูมิตู้แช่สูงกว่ามาตรฐาน เปิดเคสแล้ว CS-00975</p>
+              </div>
+            </div>
+
+            {/* Acknowledge handover */}
+            {ackHandover ? (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 14, paddingTop: 12, borderTop: "1px solid var(--border-subtle)", color: "var(--cjx-green)", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 13 }}>
+                <span className="material-symbols-outlined fill" style={{ fontSize: 18 }}>check_circle</span>
+                รับทราบงานส่งต่อแล้ว
+              </div>
+            ) : (
+              <button type="button" onClick={() => { setAckHandover(true); setShowHandover(false); }} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, width: "100%", marginTop: 14, paddingTop: 12, background: "transparent", border: "none", borderTop: "1px solid var(--border-subtle)", cursor: "pointer", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, color: "var(--text-secondary)" }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>check</span>รับทราบ
+              </button>
+            )}
+            </div>)}
+          </div>
+    );
+
+    return (
+      <div style={{ paddingBottom: 24 }}>
+        <TopAppBar align="left" onMenu={onMenu} title="จันทร์ 28 พ.ค. 2569" right={<button type="button" onClick={onAvatar} aria-label="บัญชีผู้ใช้" style={{ width: 36, height: 36, borderRadius: "var(--radius-full)", overflow: "hidden", border: "1px solid var(--border-default)", padding: 0, cursor: "pointer", background: "var(--ink-200)" }}><img src={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /></button>} />
+        <div style={{ padding: "14px 16px" }}>
+          {/* Important announcement from HQ — red minimal wash, dismissible */}
+          {annOpen && (
+          <div style={{ background: "var(--red-50)", border: "1px solid rgba(238,46,60,.22)", borderRadius: "var(--radius-lg)", marginBottom: 16, overflow: "hidden" }}>
+            <div style={{ display: "flex", gap: 11, alignItems: "flex-start", padding: "13px 15px 11px" }}>
+              <span className="material-symbols-outlined fill" style={{ fontSize: 22, color: "var(--cjx-red)", flexShrink: 0, marginTop: -1 }}>campaign</span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: ".02em", color: "var(--cjx-red)", marginBottom: 2 }}>ประกาศจากสำนักงานใหญ่ · ด่วน</div>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 600, lineHeight: 1.45, color: "var(--text-primary)", textWrap: "pretty" }}>งดจำหน่ายสินค้าล็อต ABC-204 ทุกสาขา เก็บออกจากเชลฟ์ภายใน 12:00 วันนี้ และยืนยันผ่านระบบ</p>
+              </div>
+            </div>
+            <button type="button" onClick={() => setAnnOpen(false)} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, width: "100%", padding: "11px 15px", background: "transparent", border: "none", borderTop: "1px solid rgba(238,46,60,.22)", cursor: "pointer", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 700, color: "var(--cjx-red)" }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>check</span>รับทราบ
+            </button>
+          </div>
+          )}
+
+          {/* Two separate blocks side by side: shift lead (grows, one line) + store coins */}
+          <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
+            {/* Block 1 — shift lead on duty (grows so the name stays on one line) */}
+            <div style={{ flex: "1 1 auto", minWidth: 0, display: "flex", alignItems: "flex-start", gap: 10, padding: "10px 12px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)" }}>
+              <img src={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} alt="" style={{ width: 38, height: 38, borderRadius: "var(--radius-full)", flexShrink: 0 }} />
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".02em", color: "var(--text-tertiary)" }}>ผู้รับผิดชอบกะ</div>
+                <div style={{ fontWeight: 700, fontSize: 14, marginTop: 1, whiteSpace: "nowrap" }}>คุณ สมหญิง ใจดี</div>
+              </div>
+            </div>
+            {/* Block 2 — store coins (shared store-level pool) with the same coin pill as the tasks */}
+            <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: 6, padding: "10px 12px", background: "var(--yellow-100)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)" }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".02em", color: "var(--text-tertiary)", whiteSpace: "nowrap" }}>เหรียญร้านวันนี้</div>
+              <span style={{ alignSelf: "center", display: "inline-flex", alignItems: "center", gap: 4, background: "var(--cjx-yellow)", color: "var(--cjx-brown)", fontFamily: "var(--font-numeric)", fontSize: 11, fontWeight: 800, padding: "3px 8px", borderRadius: "var(--radius-pill)" }}>
+                <span className="material-symbols-outlined fill" style={{ fontSize: 14 }}>monetization_on</span>+15
+              </span>
+            </div>
+          </div>
+
+          {/* Summary grid — tap a tile to filter the task list by status */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8 }}>
+            <SummaryStat value="09" label="งานทั้งหมด" status="total" onClick={() => setFilter(null)} style={{ cursor: "pointer", outline: filter === null ? "2.5px solid var(--cjx-brown)" : "2.5px solid transparent", outlineOffset: 1 }} />
+            <SummaryStat value="02" label="ต้องทำตอนนี้" status="current" onClick={() => toggleFilter("current")} style={{ cursor: "pointer", outline: filter === "current" ? "2.5px solid var(--cjx-brown)" : "2.5px solid transparent", outlineOffset: 1 }} />
+            <SummaryStat value="01" label="ต้องแก้ไข" status="fix" onClick={() => toggleFilter("fix")} style={{ cursor: "pointer", outline: filter === "fix" ? "2.5px solid var(--cjx-brown)" : "2.5px solid transparent", outlineOffset: 1 }} />
+            <SummaryStat value="02" label="ผ่านแล้ว" status="passed" onClick={() => toggleFilter("passed")} style={{ cursor: "pointer", outline: filter === "passed" ? "2.5px solid var(--cjx-brown)" : "2.5px solid transparent", outlineOffset: 1 }} />
+          </div>
+
+          {/* Handover — shown here until acknowledged, then moves to the bottom */}
+          {!ackHandover && handoverBlock}
+          {/* Filtered view — active when a summary tile is tapped */}
+          {filter && (
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "22px 0 14px" }}>
+                <h2 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>{STAT[filter].label}</h2>
+                <span style={{ fontFamily: "var(--font-numeric)", fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", background: "var(--surface-sunken)", padding: "2px 9px", borderRadius: "var(--radius-pill)" }}>{filtered.length}</span>
+                <button type="button" onClick={() => setFilter(null)} style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4, padding: "5px 11px 5px 8px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-pill)", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 12, color: "var(--text-secondary)" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 16 }}>close</span>ดูทั้งหมด
+                </button>
+              </div>
+              {filtered.length ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, opacity: filter === "passed" ? 0.85 : 1 }}>
+                  {filtered.map(renderBlock)}
+                </div>
+              ) : (
+                <div style={{ textAlign: "center", padding: "32px 16px", color: "var(--text-tertiary)" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 40, opacity: 0.5 }}>inbox</span>
+                  <div style={{ fontSize: 14, fontWeight: 600, marginTop: 6 }}>ไม่มีงานในสถานะนี้</div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Default grouped view */}
+          {!filter && (<React.Fragment>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "22px 0 14px" }}>
+            <h2 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>งานที่ต้องทำตอนนี้ / แก้ไข</h2>
+            <span style={{ fontFamily: "var(--font-numeric)", fontSize: 12, fontWeight: 700, color: "var(--text-tertiary)", background: "var(--surface-sunken)", padding: "2px 9px", borderRadius: "var(--radius-pill)" }}>{priority.length}</span>
+            <img src={window.RES('mumiMega','./assets/mascot/mumi-megaphone.png')} alt="" style={{ height: 52, width: "auto", marginLeft: "auto", marginRight: 4, transform: "scaleX(-1)" }} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {priority.map(renderBlock)}
+          </div>
+
+          {/* Upcoming (collapsible) */}
+          <button
+            onClick={() => setShowUpcoming((v) => !v)}
+            style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", marginTop: 20, padding: "12px 14px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-secondary)" }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 20, color: "var(--text-tertiary)" }}>schedule</span>
+            งานที่กำลังจะถึง
+            <span style={{ fontFamily: "var(--font-numeric)", fontSize: 12, color: "var(--text-tertiary)", background: "var(--surface-sunken)", padding: "2px 9px", borderRadius: "var(--radius-pill)" }}>{upcoming.length}</span>
+            <span className="material-symbols-outlined" style={{ marginLeft: "auto", fontSize: 22, transform: showUpcoming ? "rotate(180deg)" : "none", transition: "transform var(--dur-base) var(--ease-out)" }}>expand_more</span>
+          </button>
+          {showUpcoming && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 16 }}>
+              {upcoming.map(renderBlock)}
+            </div>
+          )}
+
+          {/* Completed (collapsible) */}
+          <button
+            onClick={() => setShowDone((v) => !v)}
+            style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", marginTop: 20, padding: "12px 14px", background: "var(--surface-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-md)", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-secondary)" }}
+          >
+            <span className="material-symbols-outlined fill" style={{ fontSize: 20, color: "var(--cjx-green)" }}>check_circle</span>
+            งานที่เสร็จแล้ว
+            <span style={{ fontFamily: "var(--font-numeric)", fontSize: 12, color: "var(--text-tertiary)", background: "var(--surface-sunken)", padding: "2px 9px", borderRadius: "var(--radius-pill)" }}>{done.length}</span>
+            <span className="material-symbols-outlined" style={{ marginLeft: "auto", fontSize: 22, transform: showDone ? "rotate(180deg)" : "none", transition: "transform var(--dur-base) var(--ease-out)" }}>expand_more</span>
+          </button>
+          {showDone && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 16, opacity: 0.85 }}>
+              {done.map(renderBlock)}
+            </div>
+          )}
+          </React.Fragment>)}
+
+          {/* Handover relocates here once acknowledged */}
+          {ackHandover && handoverBlock}
+
+          <div style={{ marginTop: 28 }}>
+            <Button variant="primary" size="lg" fullWidth icon="swap_horiz" onClick={onHandover}>ส่งงานปิดกะ</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  window.TaskTimelineScreen = TaskTimelineScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Overview / Dashboard screen (ภาพรวม) */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { TopAppBar, Card, StatusChip, PointsPill } = NS;
+
+  function Stat({ label, value, sub, color }) {
+    return (
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 12, color: "var(--text-tertiary)", fontWeight: 600 }}>{label}</div>
+        <div style={{ fontFamily: "var(--font-numeric)", fontSize: 24, fontWeight: 800, color: color || "var(--text-primary)", lineHeight: 1.1, marginTop: 2 }}>{value}</div>
+        {sub && <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 2 }}>{sub}</div>}
+      </div>
+    );
+  }
+
+  // Sales summary data per period
+  const SALES = {
+    today: {
+      total: "฿142,500", delta: "+12.4%", up: true,
+      metrics: [
+        { label: "ยอดขายคาเฟ่", icon: "local_cafe", value: "฿8,420", pct: 72, color: "var(--cjx-blue)" },
+        { label: "สมาชิก (ใหม่)", icon: "sell", value: "2 ราย", pct: 100, color: "var(--cjx-blue)" },
+        { label: "สินค้าโฟกัส", icon: "stars", value: "฿820", pct: 27, color: "var(--cjx-blue)" },
+        { label: "สินค้าแลกซื้อ", icon: "redeem", value: "฿228", pct: 8, color: "var(--cjx-red)", warn: true },
+      ],
+    },
+    morning: {
+      total: "฿142,500", delta: "+12.4%", up: true,
+      metrics: [
+        { label: "ยอดขายคาเฟ่", icon: "local_cafe", value: "฿8,420", pct: 72, color: "var(--cjx-blue)" },
+        { label: "สมาชิก (ใหม่)", icon: "sell", value: "2 ราย", pct: 100, color: "var(--cjx-blue)" },
+        { label: "สินค้าโฟกัส", icon: "stars", value: "฿820", pct: 27, color: "var(--cjx-blue)" },
+        { label: "สินค้าแลกซื้อ", icon: "redeem", value: "฿228", pct: 8, color: "var(--cjx-red)", warn: true },
+      ],
+    },
+    afternoon: {
+      total: "฿0", delta: "ยังไม่เริ่มกะ", up: false,
+      metrics: [
+        { label: "ยอดขายคาเฟ่", icon: "local_cafe", value: "฿0", pct: 0, color: "var(--cjx-blue)" },
+        { label: "สมาชิก (ใหม่)", icon: "sell", value: "0 ราย", pct: 0, color: "var(--cjx-blue)" },
+        { label: "สินค้าโฟกัส", icon: "stars", value: "฿0", pct: 0, color: "var(--cjx-blue)" },
+        { label: "สินค้าแลกซื้อ", icon: "redeem", value: "฿0", pct: 0, color: "var(--cjx-blue)" },
+      ],
+    },
+  };
+  const PERIODS = [{ id: "today", label: "วันนี้" }, { id: "morning", label: "กะเช้า" }, { id: "afternoon", label: "กะบ่าย" }];
+
+  function MetricCard({ m }) {
+    return (
+      <Card padding={14} style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 6 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", lineHeight: 1.3 }}>{m.label}</div>
+          <span className="material-symbols-outlined" style={{ fontSize: 19, color: m.color }}>{m.icon}</span>
+        </div>
+        <div style={{ fontFamily: "var(--font-numeric)", fontSize: 22, fontWeight: 800, color: "var(--text-primary)", lineHeight: 1, marginTop: 8 }}>{m.value}</div>
+        <div style={{ height: 6, background: "var(--surface-sunken)", borderRadius: "var(--radius-pill)", marginTop: 12, overflow: "hidden" }}>
+          <div style={{ width: m.pct + "%", height: "100%", background: m.color, borderRadius: "var(--radius-pill)" }} />
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6 }}>
+          <span style={{ fontFamily: "var(--font-numeric)", fontSize: 11, fontWeight: 700, color: m.warn ? "var(--cjx-red)" : "var(--text-secondary)" }}>{m.pct}%</span>
+          <span style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{m.warn ? "ต่ำกว่าเป้า" : "ของเป้า"}</span>
+        </div>
+      </Card>
+    );
+  }
+
+  function SalesSummary() {
+    const [period, setPeriod] = React.useState("today");
+    const d = SALES[period];
+    return (
+      <div>
+        {/* Period segmented control */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: "var(--text-tertiary)" }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 15 }}>schedule</span>
+            <span>อัปเดต 09:42 น.</span>
+          </div>
+          <div style={{ display: "flex", gap: 4, background: "var(--surface-sunken)", padding: 3, borderRadius: "var(--radius-pill)" }}>
+            {PERIODS.map((p) => (
+              <button key={p.id} onClick={() => setPeriod(p.id)} style={{
+                border: "none", cursor: "pointer", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 12,
+                padding: "5px 12px", borderRadius: "var(--radius-pill)",
+                background: period === p.id ? "var(--surface-card)" : "transparent",
+                color: period === p.id ? "var(--text-primary)" : "var(--text-tertiary)",
+                boxShadow: period === p.id ? "var(--shadow-sm)" : "none",
+                border: period === p.id ? "1px solid var(--border-default)" : "1px solid transparent",
+                transition: "background var(--dur-fast), color var(--dur-fast)",
+              }}>{p.label}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* Total revenue hero */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: 16, background: "var(--navy-900)", borderRadius: "var(--radius-lg)" }}>
+          <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 8 }}>
+            <span className="material-symbols-outlined fill" style={{ fontSize: 22, color: "#fff" }}>storefront</span>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", lineHeight: 1.2 }}>ยอดขายรวม</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontFamily: "var(--font-numeric)", fontSize: 27, fontWeight: 800, color: "#fff", lineHeight: 1 }}>{d.total}</div>
+            <div style={{ fontFamily: "var(--font-numeric)", fontSize: 12, fontWeight: 700, color: d.up ? "var(--green-400)" : "var(--red-400)", marginTop: 3 }}>{/^[+\-]/.test(d.delta) ? d.delta + " เทียบเป้า" : d.delta}</div>
+          </div>
+        </div>
+
+        {/* Metric grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 12 }}>
+          {d.metrics.map((m, i) => <MetricCard key={i} m={m} />)}
+        </div>
+      </div>
+    );
+  }
+
+  function OverviewScreen({ onMenu, onMonthly, onAvatar }) {
+    return (
+      <div style={{ paddingBottom: 24 }}>
+        <TopAppBar align="left" onMenu={onMenu} title="ภาพรวมร้าน" right={<button type="button" onClick={onAvatar} aria-label="บัญชีผู้ใช้" style={{ width: 36, height: 36, borderRadius: "var(--radius-full)", overflow: "hidden", border: "1px solid var(--border-default)", padding: 0, cursor: "pointer", background: "var(--ink-200)" }}><img src={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /></button>} />
+        <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
+
+          {/* Store grade hero */}
+          <Card padding={0} style={{ overflow: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, padding: 16, background: "var(--cjx-yellow)" }}>
+              <img src={window.RES('mumiHero','./assets/mascot/mumi-hero.png')} alt="" style={{ height: 60, width: "auto", flexShrink: 0 }} />
+              <div style={{ flex: 1, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: "var(--cjx-brown)", lineHeight: 1.15 }}>CJX00072</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--cjx-brown)", lineHeight: 1.15, marginTop: 2 }}>ศรีด่าน 22</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: 10, fontWeight: 500, color: "var(--cjx-brown)", opacity: .8, whiteSpace: "nowrap" }}>เกรดร้านเดือนนี้</div>
+                  <div style={{ fontFamily: "var(--font-numeric)", fontSize: 40, fontWeight: 800, color: "var(--cjx-brown)", lineHeight: 1, marginTop: 2 }}>A</div>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Shift lead on duty */}
+          <Card>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".04em", color: "var(--text-tertiary)", marginBottom: 10 }}>ผู้จัดการร้าน</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <img src={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} alt="" style={{ width: 44, height: 44, borderRadius: "var(--radius-full)" }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 15 }}>นางสาววรณี สุขสว่าง</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>อายุงาน 3 ปี 2 เดือน</div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Sales summary */}
+          <SalesSummary />
+
+          {/* Monthly summary entry */}
+          <Card interactive accent="current" onClick={onMonthly}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span className="material-symbols-outlined fill" style={{ color: "var(--cjx-yellow)", fontSize: 30 }}>emoji_events</span>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: 15 }}>สรุปประจำเดือน</div>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>ดูเกรดร้านและผลงานรายบุคคล</div>
+              </div>
+              <span className="material-symbols-outlined" style={{ color: "var(--text-tertiary)" }}>chevron_right</span>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  window.OverviewScreen = OverviewScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Task Submission, photo-verified Pass/Fail (ปิดงาน)
+   Flow: attach photos → verification → PASS (coins) | FAIL (feedback +
+   redo countdown). Repeated fail escalates up the chain; redo still required. */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { IconButton, Button, Input, StatusChip, PointsPill, Card } = NS;
+
+  const REDO_SECONDS = 20 * 60; // resubmit window
+  const CHAIN = ["AM", "RM", "สำนักงานใหญ่"];
+  const FEEDBACK = [
+    "แสงในภาพไม่เพียงพอ ถ่ายให้สว่างขึ้น",
+    "ไม่พบป้ายราคาในภาพอย่างชัดเจน",
+    "มุมถ่ายไม่ครอบคลุมทั้งชั้นวาง",
+  ];
+
+  function PhotoSlot({ src }) {
+    return (
+      <div style={{
+        aspectRatio: "1 / 1", borderRadius: "var(--radius-md)",
+        border: src ? "1px solid var(--border-subtle)" : "2px dashed var(--border-default)",
+        background: src ? "var(--surface-sunken)" : "var(--surface-card)",
+        display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+        gap: 4, color: "var(--text-tertiary)", cursor: "pointer", overflow: "hidden",
+      }}>
+        {src
+          ? <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          : <><span className="material-symbols-outlined" style={{ fontSize: 28 }}>add_a_photo</span><span style={{ fontSize: 11 }}>แนบรูป</span></>}
+      </div>
+    );
+  }
+
+  function Countdown({ seconds }) {
+    const [t, setT] = React.useState(seconds);
+    React.useEffect(() => {
+      if (t <= 0) return;
+      const id = setInterval(() => setT((x) => Math.max(0, x - 1)), 1000);
+      return () => clearInterval(id);
+    }, []);
+    const mm = String(Math.floor(t / 60)).padStart(2, "0");
+    const ss = String(t % 60).padStart(2, "0");
+    return <span style={{ fontFamily: "var(--font-numeric)", fontVariantNumeric: "tabular-nums", fontWeight: 800 }}>{mm}:{ss}</span>;
+  }
+
+  /* 22 brand coins dropping from the top, bouncing, and settling below the button */
+  function CoinRain() {
+    const ref = React.useRef(null);
+    const [h, setH] = React.useState(0);
+    const [floor, setFloor] = React.useState(0); // y below which coins may rest (just under the button)
+    const [drop, setDrop] = React.useState(false);
+    React.useLayoutEffect(() => {
+      const layer = ref.current;
+      if (!layer) return;
+      setH(layer.offsetHeight);
+      const root = layer.parentElement;
+      const btn = root && root.querySelector("button");
+      if (btn) {
+        const lr = layer.getBoundingClientRect();
+        const br = btn.getBoundingClientRect();
+        setFloor(Math.round(br.bottom - lr.top + 16)); // 16px gap under the button
+      } else {
+        setFloor(Math.round(layer.offsetHeight * 0.72));
+      }
+    }, []);
+    React.useEffect(() => {
+      if (!h) return;
+      const id = setTimeout(() => setDrop(true), 30);
+      return () => clearTimeout(id);
+    }, [h]);
+    const coins = React.useMemo(() => Array.from({ length: 22 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 88,              // % across the screen
+      delay: Math.random() * 0.5,            // s
+      dur: 1.0 + Math.random() * 0.7,        // s
+      size: 46 + Math.round(Math.random() * 26),   // bigger coins (46–72px)
+      spin: (Math.random() > 0.5 ? 1 : -1) * (360 + Math.round(Math.random() * 360)),
+      r: Math.random(),                      // 0..1 position within the resting band
+    })), []);
+    return (
+      <div ref={ref} aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 9999 }}>
+        {h > 0 && coins.map((c) => {
+          const maxLand = h - c.size - 8;
+          const minLand = Math.min(floor, maxLand);
+          const land = Math.round(minLand + c.r * (maxLand - minLand));
+          return (
+            <div key={c.id} style={{
+              position: "absolute", top: 0, left: c.left + "%", width: c.size, height: c.size,
+              transform: drop ? `translateY(${land}px) rotate(${c.spin}deg)` : "translateY(-64px) rotate(0deg)",
+              opacity: drop ? 1 : 0,
+              transition: `transform ${c.dur}s cubic-bezier(.34,1.32,.64,1) ${c.delay}s, opacity .25s ${c.delay}s`,
+            }}>
+              <div style={{ width: "100%", height: "100%", borderRadius: "var(--radius-full)", background: "radial-gradient(circle at 35% 30%, #ffe766, var(--cjx-yellow) 60%, #e6b800)", border: "2.5px solid #e0a900", boxShadow: "inset 0 -3px 4px rgba(160,110,0,.4), 0 3px 6px rgba(48,25,18,.22)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "var(--font-numeric)", fontWeight: 800, color: "var(--cjx-brown)", fontSize: c.size * 0.5, lineHeight: 1 }}>฿</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  /* ---- Verification processing step ---- */
+  function Processing() {
+    return (
+      <div style={{ minHeight: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 24px", background: "var(--surface-page)" }}>
+        <style>{`@keyframes cjxSpin{to{transform:rotate(360deg)}}@keyframes cjxBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`}</style>
+        <div style={{ position: "relative", width: 160, height: 160, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "absolute", inset: 0, borderRadius: "var(--radius-full)", border: "4px solid var(--yellow-100)", borderTopColor: "var(--cjx-yellow)", animation: "cjxSpin 0.9s linear infinite" }} />
+          <img src={window.RES('mumiPoint','./assets/mascot/mumi-point.png')} alt="" style={{ height: 80, animation: "cjxBob 1.4s ease-in-out infinite" }} />
+        </div>
+        <h2 style={{ fontSize: 20, fontWeight: 700, margin: "22px 0 6px" }}>กำลังตรวจสอบรูปถ่าย…</h2>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", margin: 0, maxWidth: 280 }}>ระบบกำลังประมวลผลภาพเพื่อตรวจมาตรฐานงาน</p>
+      </div>
+    );
+  }
+
+  /* ---- Result step ---- */
+  function ResultView({ verdict, attempt, coins, taskTitle, onRedo, onDone }) {
+    const [coinsOn, setCoinsOn] = React.useState(false);
+    const collect = () => {
+      if (coinsOn) return;
+      setCoinsOn(true);
+      setTimeout(() => onDone && onDone(), 2400);
+    };
+    if (verdict === "pass") {
+      return (
+        <div style={{ position: "relative", minHeight: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 24px", background: "var(--surface-wash)", overflow: "hidden" }}>
+          <style>{`@keyframes cjxPop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}`}</style>
+          <img src={window.RES('mumiYeah','./assets/mascot/mumi-yeah.png')} alt="" style={{ height: 150, animation: "cjxPop .45s var(--ease-spring)" }} />
+          <div style={{ marginTop: 18 }}><StatusChip status="passed" icon="check_circle">ผ่านการตรวจสอบ</StatusChip></div>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: "14px 0 6px" }}>เยี่ยมมาก! ปิดงานสำเร็จ</h2>
+          <p style={{ fontSize: 14, color: "var(--text-secondary)", margin: 0, maxWidth: 300 }}>{taskTitle}</p>
+          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <div style={{ fontSize: 12, color: "var(--text-tertiary)", fontWeight: 600 }}>ได้รับเหรียญรางวัล</div>
+            <PointsPill points={coins} prefix="+" icon="monetization_on" label="เหรียญ" size="lg" />
+          </div>
+          <div style={{ marginTop: 28, width: "100%", maxWidth: 320, position: "relative", zIndex: 31 }}>
+            <Button variant="primary" size="lg" fullWidth onClick={collect}>เก็บเหรียญ</Button>
+          </div>
+          {coinsOn && <CoinRain />}
+        </div>
+      );
+    }
+
+    // FAIL — attempt 1 is the store's own chance to fix; missing it escalates to AM → RM → HQ
+    const escalated = attempt >= 2;
+    const chainIdx = Math.min(attempt - 2, CHAIN.length - 1); // who it's been escalated to (AM on first escalation)
+    return (
+      <div style={{ minHeight: "100%", background: "var(--surface-page)", padding: "28px 20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+        <style>{`@keyframes cjxPop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}`}</style>
+        <img src={window.RES('mumiMega','./assets/mascot/mumi-megaphone.png')} alt="" style={{ height: 120, animation: "cjxPop .4s var(--ease-out)" }} />
+        <div style={{ marginTop: 14 }}><StatusChip status="fix" icon="cancel">ไม่ผ่านการตรวจสอบ</StatusChip></div>
+        <h2 style={{ fontSize: 22, fontWeight: 700, margin: "12px 0 4px" }}>แก้ไขงานและส่งอีกครั้ง</h2>
+
+        {/* Redo countdown */}
+        <Card accent="fix" style={{ width: "100%", maxWidth: 340, marginTop: 18, textAlign: "left" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span className="material-symbols-outlined" style={{ color: "var(--cjx-red)" }}>timer</span>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: 700, fontSize: 14 }}>แก้ไขภายใน</div>
+              <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{attempt === 1 ? "หากเลยกำหนดจะมีการส่งเรื่องไปยัง AM" : `ครั้งที่ ${attempt} · หากเลยกำหนดจะยกระดับต่อไป`}</div>
+            </div>
+            <div style={{ fontSize: 22, color: "var(--cjx-red)" }}><Countdown seconds={REDO_SECONDS} /> <span style={{ fontSize: 12, fontWeight: 600 }}>นาที</span></div>
+          </div>
+        </Card>
+
+        {/* Escalation chain (shown once escalated) */}
+        {escalated && (
+          <Card accent="fix" style={{ width: "100%", maxWidth: 340, marginTop: 12, textAlign: "left", background: "var(--red-50)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+              <span className="material-symbols-outlined fill" style={{ color: "var(--cjx-red)" }}>warning</span>
+              <span style={{ fontWeight: 700, fontSize: 14 }}>ยกระดับการแจ้งเตือนแล้ว</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 4 }}>
+              {CHAIN.map((c, i) => (
+                <React.Fragment key={i}>
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, padding: "3px 9px", borderRadius: "var(--radius-pill)",
+                    background: i <= chainIdx ? "var(--cjx-red)" : "var(--surface-sunken)",
+                    color: i <= chainIdx ? "#fff" : "var(--text-tertiary)",
+                  }}>{c}</span>
+                  {i < CHAIN.length - 1 && <span className="material-symbols-outlined" style={{ fontSize: 14, color: "var(--text-tertiary)" }}>arrow_forward</span>}
+                </React.Fragment>
+              ))}
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 10 }}>คุณยังต้องแก้ไขและส่งงานนี้ให้ผ่าน</div>
+          </Card>
+        )}
+
+        <div style={{ marginTop: 22, width: "100%", maxWidth: 340, display: "flex", gap: 10 }}>
+          <Button variant="ghost" style={{ flex: 1 }} onClick={onDone}>ภายหลัง</Button>
+          <Button variant="danger" icon="add_a_photo" style={{ flex: 1 }} onClick={onRedo}>ถ่ายใหม่ & ส่งอีกครั้ง</Button>
+        </div>
+      </div>
+    );
+  }
+
+  function SubmitScreen({ taskTitle, coins = 5, onBack }) {
+    const [step, setStep] = React.useState("form"); // form | processing | result
+    const [attempt, setAttempt] = React.useState(1);
+    const [verdict, setVerdict] = React.useState("fail");
+
+    // Simulated verdict: fail on first two attempts (to show redo + escalation), pass on the 3rd.
+    const runCheck = () => {
+      setStep("processing");
+      setTimeout(() => {
+        setVerdict(attempt >= 3 ? "pass" : "fail");
+        setStep("result");
+      }, 1700);
+    };
+
+    if (step === "processing") return <Processing />;
+    if (step === "result") {
+      return (
+        <ResultView
+          verdict={verdict}
+          attempt={attempt}
+          coins={coins}
+          taskTitle={taskTitle}
+          onDone={onBack}
+          onRedo={() => { setAttempt((a) => a + 1); setStep("form"); }}
+        />
+      );
+    }
+
+    return (
+      <div style={{ minHeight: "100%", background: "var(--surface-page)" }}>
+        <header style={{ display: "flex", alignItems: "center", gap: 8, height: 56, padding: "0 8px", background: "var(--surface-card)", borderBottom: "1px solid var(--border-subtle)", position: "sticky", top: 0, zIndex: 5 }}>
+          <IconButton icon="arrow_back" onClick={onBack} aria-label="ย้อนกลับ" />
+          <div style={{ fontWeight: 700, fontSize: 16, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{taskTitle || "ปิดงาน"}</div>
+          <PointsPill points={coins} icon="monetization_on" size="sm" />
+        </header>
+
+        <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 18 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, background: "var(--surface-wash)", border: "1px solid var(--yellow-200)", borderRadius: "var(--radius-md)", padding: 12 }}>
+            <span className="material-symbols-outlined" style={{ color: "var(--yellow-700)" }}>fact_check</span>
+            <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>แนบรูปถ่ายให้ครบถ้วน ระบบจะตรวจสอบผลให้อัตโนมัติ</span>
+          </div>
+
+          {attempt > 1 && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--cjx-red)", fontSize: 13, fontWeight: 600 }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>history</span>
+              ส่งใหม่ครั้งที่ {attempt} — แก้ตามคำแนะนำก่อนส่ง
+            </div>
+          )}
+
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 8 }}>หลักฐานรูปถ่าย</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}>
+              <PhotoSlot src={window.RES('photo1','https://images.unsplash.com/photo-1556767576-5ec41e3239ea?w=300&q=60')} />
+              <PhotoSlot src={window.RES('photo2','https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=300&q=60')} />
+              <PhotoSlot />
+            </div>
+          </div>
+
+          <Input label="หมายเหตุ (ถ้ามี)" placeholder="ระบุรายละเอียดเพิ่มเติม" icon="edit_note" />
+
+          <div style={{ display: "flex", gap: 10, marginTop: 6 }}>
+            <Button variant="ghost" style={{ flex: 1 }} onClick={onBack}>ยกเลิก</Button>
+            <Button variant="primary" icon="fact_check" style={{ flex: 1 }} onClick={runCheck}>ส่งตรวจสอบ</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  window.SubmitScreen = SubmitScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Shift Handover screen (ส่งต่อกะ) */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { TopAppBar, Card, Button, Input, Select, StatusChip, TaskCard } = NS;
+
+  function Section({ title, children }) {
+    return (
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".04em", color: "var(--text-tertiary)", marginBottom: 10 }}>{title}</div>
+        {children}
+      </div>
+    );
+  }
+
+  // One result line: state = "pass" | "fail" | "pending"
+  function ResultRow({ state, label, detail, warn, last }) {
+    const cfg = {
+      pass: { icon: "check_circle", color: "var(--cjx-green)" },
+      fail: { icon: "cancel", color: "var(--cjx-red)" },
+      pending: { icon: "radio_button_unchecked", color: "var(--text-tertiary)" },
+    }[state] || { icon: "cancel", color: "var(--cjx-red)" };
+    return (
+      <div style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "9px 0", borderBottom: last ? "none" : "1px solid var(--border-subtle)" }}>
+        <span className="material-symbols-outlined fill" style={{ fontSize: 20, color: cfg.color, flexShrink: 0, marginTop: 1 }}>{cfg.icon}</span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.35 }}>{label}</div>
+          {detail && <div style={{ fontSize: 12, color: warn ? "var(--cjx-red)" : "var(--text-tertiary)", marginTop: 2, lineHeight: 1.35 }}>{detail}</div>}
+        </div>
+      </div>
+    );
+  }
+
+  function ResultGroup({ title, rows }) {
+    return (
+      <Section title={title}>
+        <Card>
+          {rows.map((r, i) => <ResultRow key={i} {...r} last={i === rows.length - 1} />)}
+        </Card>
+      </Section>
+    );
+  }
+
+  // Shift result data
+  const WORK = [
+    { state: "pass", label: "ยอดขาย 19,805 / 19,530 บาท", detail: "ถึงเป้ากะเช้าแล้ว" },
+    { state: "fail", label: "ยอดขายคาเฟ่ 828 / 1,566 บาท", detail: "ทำเพิ่ม 738 บาท", warn: true },
+    { state: "pass", label: "สมาชิก 1 / 1" },
+    { state: "fail", label: "งานมาตรฐาน", detail: "ยังไม่ผ่าน", warn: true },
+  ];
+  const SALES = [
+    { state: "fail", label: "สินค้าโฟกัส 255 / 1,000 บาท", detail: "ทำเพิ่ม 745 บาท", warn: true },
+    { state: "fail", label: "แลกซื้อ 564 / 1,000 บาท", detail: "ทำเพิ่ม 436 บาท", warn: true },
+  ];
+  const STANDARD = [
+    { state: "fail", label: "หัวชั้น", detail: "รูปไม่ครบ" },
+    { state: "fail", label: "งานปิดรูโล่งกะเช้า", detail: "รูปไม่ครบ" },
+    { state: "fail", label: "ป้ายโปรรอพิมพ์ที่ต้องติด", detail: "734 ป้าย" },
+    { state: "fail", label: "ป้ายขาวรอพิมพ์ที่ต้องติด", detail: "560 ป้าย" },
+    { state: "pending", label: "ลังโท้ดที่รอเปิด", detail: "7 ลัง · ตรวจรับภายใน 19:02 วันนี้" },
+    { state: "fail", label: "ตะกร้าของสดที่รอเปิด", detail: "4 ใบ · ตรวจรับภายใน 16:31 (เกินเวลา)", warn: true },
+    { state: "fail", label: "สินค้าขาดเชลฟ์", detail: "54 รายการ" },
+  ];
+
+  function HandoverScreen({ onMenu, onSpin }) {
+    const [done, setDone] = React.useState(false);
+
+    if (done) {
+      return (
+        <div style={{ position: "relative", minHeight: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 24px", background: "var(--surface-wash)" }}>
+          <style>{`@keyframes cjxPop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}@keyframes cjxRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}`}</style>
+          <div style={{ position: "relative", animation: "cjxPop .5s var(--ease-spring)" }}>
+            <img src={window.RES('mumiYeah','./assets/mascot/mumi-yeah.png')} alt="" style={{ height: 150 }} />
+            <span className="material-symbols-outlined fill" style={{ position: "absolute", bottom: -4, right: -6, fontSize: 44, color: "var(--cjx-green)", background: "#fff", borderRadius: "var(--radius-full)" }}>check_circle</span>
+          </div>
+          <h2 style={{ fontSize: 24, fontWeight: 700, margin: "18px 0 6px", animation: "cjxRise .4s var(--ease-out) .1s both" }}>ส่งต่อกะเรียบร้อย!</h2>
+
+          <div style={{ display: "flex", gap: 10, marginTop: 20, animation: "cjxRise .4s var(--ease-out) .22s both" }}>
+            <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--font-numeric)", fontSize: 22, fontWeight: 800, color: "var(--cjx-green)" }}>6/8</div><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>งานเสร็จ</div></div>
+            <div style={{ width: 1, background: "var(--border-default)" }} />
+            <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--font-numeric)", fontSize: 22, fontWeight: 800, color: "var(--cjx-green)" }}>ผ่าน</div><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>ผลกะ</div></div>
+            <div style={{ width: 1, background: "var(--border-default)" }} />
+            <div style={{ textAlign: "center" }}><div style={{ fontFamily: "var(--font-numeric)", fontSize: 22, fontWeight: 800, color: "var(--cjx-brown)" }}>+50</div><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>เหรียญ</div></div>
+          </div>
+
+          <div style={{ marginTop: 28, width: "100%", maxWidth: 320, animation: "cjxRise .4s var(--ease-out) .28s both" }}>
+            <Button variant="primary" size="lg" fullWidth icon="home" onClick={onSpin || onMenu}>เสร็จสิ้น</Button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ paddingBottom: 24 }}>
+        <TopAppBar title="สรุปส่งต่อกะ" subtitle="กะเช้า → กะบ่าย" back align="left" onMenu={onMenu} avatar={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} />
+        <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 18 }}>
+
+          {/* Shift summary card */}
+          <Card padding={0} style={{ overflow: "hidden" }}>
+            <div style={{ display: "flex", gap: 12, padding: 16, background: "var(--cjx-yellow)", alignItems: "center" }}>
+              <img src={window.RES('mumi8','./assets/mascot/mumi-8.png')} alt="" style={{ height: 56, display: "block", alignSelf: "center", transform: "translateY(5px)" }} />
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 16 }}>สรุปกะเช้า 28 พ.ค.</div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 2 }}>เสร็จ 6/8 งาน · 1 งานต้องแก้ไข</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", padding: 14, gap: 12, background: "var(--surface-wash)" }}>
+              <div style={{ flex: 1, textAlign: "center" }}><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>ผลกะ</div><div style={{ fontFamily: "var(--font-numeric)", fontSize: 20, fontWeight: 800, color: "var(--cjx-brown)", marginTop: 4, lineHeight: 1.1 }}>ผ่าน</div></div>
+              <div style={{ flex: 1, textAlign: "center" }}><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>หัวหน้ากะ</div><div style={{ fontSize: 20, fontWeight: 800, color: "var(--text-primary)", marginTop: 4, lineHeight: 1.1 }}>สมหญิง</div></div>
+              <div style={{ flex: 1, textAlign: "center" }}><div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>เหรียญกะนี้</div><div style={{ fontFamily: "var(--font-numeric)", fontSize: 20, fontWeight: 800, color: "var(--cjx-brown)", marginTop: 4, lineHeight: 1.1 }}>+50</div></div>
+            </div>
+          </Card>
+
+          {/* Detailed shift results */}
+          <ResultGroup title="สรุปผลการทำงานวันนี้" rows={WORK} />
+          <ResultGroup title="สรุปยอดขายประจำกะ" rows={SALES} />
+          <ResultGroup title="งานมาตรฐานที่ยังทำไม่สำเร็จ" rows={STANDARD} />
+
+          {/* Summary note */}
+          <div style={{ display: "flex", gap: 12, padding: 16, background: "var(--surface-wash)", border: "1px solid var(--yellow-200)", borderRadius: "var(--radius-lg)" }}>
+            <img src={window.RES('mumiHeart','./assets/mascot/mumi-heart.png')} alt="" style={{ height: 44, width: "auto", flexShrink: 0, alignSelf: "flex-start" }} />
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "var(--cjx-brown)", textWrap: "pretty" }}>
+              ยอดขายกะเช้าโดยรวมถึงเป้าแล้ว เก่งมากเลยค่ะ 🎉 แต่ยอดคาเฟ่และสินค้าโฟกัสยังห่างเป้าอยู่ รวมถึงงานมาตรฐานยังไม่ผ่าน รบกวนช่วยส่งรูปหัวชั้น ปิดรูโล่ง และติดป้ายราคาให้เรียบร้อยด้วยนะคะ 🙏
+            </p>
+          </div>
+
+          {/* Issues / notes */}
+          <Section title="ปัญหา & บันทึกถึงกะถัดไป">
+            <Input placeholder="อุณหภูมิตู้แช่สูงกว่ามาตรฐาน มีการเปิดเคสแล้ว" icon="sticky_note_2" inputStyle={{ fontSize: 13 }} />
+          </Section>
+
+          {/* Next shift lead */}
+
+          <Button variant="primary" size="lg" fullWidth icon="task_alt" onClick={() => setDone(true)}>ยืนยันปิดกะ</Button>
+        </div>
+      </div>
+    );
+  }
+
+  window.HandoverScreen = HandoverScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Lucky Spin reward wheel (วงล้อนำโชค)
+   Unlocked when the shift finishes all tasks on time. One spin awards coins. */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { IconButton, Button, PointsPill, StatusChip } = NS;
+
+  // 8 prize wedges (clockwise from top). One red jackpot.
+  const PRIZES = [
+    { v: 50,  c: "var(--cjx-yellow)", t: "var(--cjx-brown)" },
+    { v: 20,  c: "#FFF1B8",           t: "var(--cjx-brown)" },
+    { v: 100, c: "var(--cjx-yellow)", t: "var(--cjx-brown)" },
+    { v: 10,  c: "#FFF1B8",           t: "var(--cjx-brown)" },
+    { v: 30,  c: "var(--cjx-yellow)", t: "var(--cjx-brown)" },
+    { v: 200, c: "var(--cjx-red)",    t: "#fff", jackpot: true },
+    { v: 15,  c: "#FFF1B8",           t: "var(--cjx-brown)" },
+    { v: 80,  c: "var(--cjx-yellow)", t: "var(--cjx-brown)" },
+  ];
+  const SEG = 360 / PRIZES.length; // 45°
+  const SIZE = 280;                // wheel diameter (px)
+
+  /* 22 brand coins dropping from the top, bouncing, and settling below the button */
+  function CoinRain() {
+    const ref = React.useRef(null);
+    const [h, setH] = React.useState(0);
+    const [floor, setFloor] = React.useState(0);
+    const [drop, setDrop] = React.useState(false);
+    React.useLayoutEffect(() => {
+      const layer = ref.current;
+      if (!layer) return;
+      setH(layer.offsetHeight);
+      const root = layer.parentElement;
+      const btns = root && root.querySelectorAll("button");
+      const btn = btns && btns[btns.length - 1];
+      if (btn) {
+        const lr = layer.getBoundingClientRect();
+        const br = btn.getBoundingClientRect();
+        setFloor(Math.round(br.bottom - lr.top + 16));
+      } else {
+        setFloor(Math.round(layer.offsetHeight * 0.72));
+      }
+    }, []);
+    React.useEffect(() => {
+      if (!h) return;
+      const id = setTimeout(() => setDrop(true), 30);
+      return () => clearTimeout(id);
+    }, [h]);
+    const coins = React.useMemo(() => Array.from({ length: 22 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 88,
+      delay: Math.random() * 0.5,
+      dur: 1.0 + Math.random() * 0.7,
+      size: 46 + Math.round(Math.random() * 26),
+      spin: (Math.random() > 0.5 ? 1 : -1) * (360 + Math.round(Math.random() * 360)),
+      r: Math.random(),
+    })), []);
+    return (
+      <div ref={ref} aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 9999 }}>
+        {h > 0 && coins.map((c) => {
+          const maxLand = h - c.size - 8;
+          const minLand = Math.min(floor, maxLand);
+          const land = Math.round(minLand + c.r * (maxLand - minLand));
+          return (
+            <div key={c.id} style={{
+              position: "absolute", top: 0, left: c.left + "%", width: c.size, height: c.size,
+              transform: drop ? `translateY(${land}px) rotate(${c.spin}deg)` : "translateY(-64px) rotate(0deg)",
+              opacity: drop ? 1 : 0,
+              transition: `transform ${c.dur}s cubic-bezier(.34,1.32,.64,1) ${c.delay}s, opacity .25s ${c.delay}s`,
+            }}>
+              <div style={{ width: "100%", height: "100%", borderRadius: "var(--radius-full)", background: "radial-gradient(circle at 35% 30%, #ffe766, var(--cjx-yellow) 60%, #e6b800)", border: "2.5px solid #e0a900", boxShadow: "inset 0 -3px 4px rgba(160,110,0,.4), 0 3px 6px rgba(48,25,18,.22)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "var(--font-numeric)", fontWeight: 800, color: "var(--cjx-brown)", fontSize: c.size * 0.5, lineHeight: 1 }}>฿</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // conic-gradient background, segment 0 centered at the top pointer
+  const gradient = "conic-gradient(from " + (-SEG / 2) + "deg, " +
+    PRIZES.map((p, i) => `${p.c} ${i * SEG}deg ${(i + 1) * SEG}deg`).join(", ") + ")";
+
+  function SpinWheelScreen({ eligible = true, spinsLeft = 1, onClose }) {
+    const [rotation, setRotation] = React.useState(0);
+    const [spinning, setSpinning] = React.useState(false);
+    const [left, setLeft] = React.useState(spinsLeft);
+    const [won, setWon] = React.useState(null); // prize object after a spin
+    const [coinsOn, setCoinsOn] = React.useState(false);
+
+    const collect = () => {
+      if (coinsOn) return;
+      setCoinsOn(true);
+      setTimeout(() => onClose && onClose(), 2400);
+    };
+
+    const spin = () => {
+      if (spinning || left <= 0 || !eligible) return;
+      const w = Math.floor(Math.random() * PRIZES.length);
+      const base = rotation - (rotation % 360);     // current full turns
+      const target = base + 360 * 5 + (360 - w * SEG) % 360 + 360; // 5+ turns, land on w
+      setSpinning(true);
+      setWon(null);
+      setRotation(target);
+      setTimeout(() => {
+        setSpinning(false);
+        setLeft((n) => Math.max(0, n - 1));
+        setWon(PRIZES[w]);
+      }, 4200);
+    };
+
+    return (
+      <div style={{ position: "relative", minHeight: "100%", display: "flex", flexDirection: "column", background: "linear-gradient(180deg, var(--cjx-yellow) 0%, #ffe98a 28%, var(--surface-page) 64%)", overflow: "hidden" }}>
+        {/* Header */}
+        <header style={{ display: "flex", alignItems: "center", gap: 8, height: 56, padding: "0 8px", flexShrink: 0 }}>
+          <IconButton icon="arrow_back" onClick={onClose} aria-label="ปิด" />
+          <div style={{ fontWeight: 700, fontSize: 16, flex: 1, color: "var(--cjx-brown)" }}>วงล้อนำโชค</div>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "var(--cjx-brown)", background: "rgba(255,255,255,.6)", padding: "5px 11px", borderRadius: "var(--radius-pill)" }}>
+            <span className="material-symbols-outlined fill" style={{ fontSize: 16 }}>casino</span>
+            สิทธิ์หมุน {left}
+          </span>
+        </header>
+
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", padding: "4px 22px 26px", textAlign: "center" }}>
+          {/* Eligibility note */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 2, marginBottom: 14 }}>
+            <StatusChip status={eligible ? "passed" : "fix"} icon={eligible ? "verified" : "lock"} size="sm">
+              {eligible ? "ปลดล็อก: ทำงานครบตรงเวลา" : "ทำงานให้ครบตรงเวลาเพื่อปลดล็อก"}
+            </StatusChip>
+          </div>
+
+          {/* Wheel */}
+          <div style={{ position: "relative", width: SIZE, height: SIZE, flexShrink: 0 }}>
+            {/* Pointer */}
+            <div style={{ position: "absolute", top: -6, left: "50%", transform: "translateX(-50%)", zIndex: 4, width: 0, height: 0, borderLeft: "15px solid transparent", borderRight: "15px solid transparent", borderTop: "26px solid var(--cjx-brown)", filter: "drop-shadow(0 2px 2px rgba(0,0,0,.25))" }} />
+            {/* Disc */}
+            <div style={{
+              position: "absolute", inset: 0, borderRadius: "var(--radius-full)",
+              background: gradient,
+              border: "8px solid var(--cjx-brown)",
+              boxShadow: "0 12px 30px rgba(48,25,18,.28), inset 0 0 0 2px rgba(255,255,255,.4)",
+              transform: `rotate(${rotation}deg)`,
+              transition: "transform 4.2s cubic-bezier(.12,.72,.06,1)",
+            }}>
+              {/* Wedge divider lines + labels */}
+              {PRIZES.map((p, i) => (
+                <React.Fragment key={i}>
+                  <div style={{ position: "absolute", top: 0, left: "50%", width: 2, height: "50%", background: "rgba(48,25,18,.16)", transformOrigin: "bottom center", transform: `translateX(-50%) rotate(${i * SEG + SEG / 2}deg)` }} />
+                  <div style={{ position: "absolute", top: 0, left: "50%", height: "50%", transformOrigin: "bottom center", transform: `translateX(-50%) rotate(${i * SEG}deg)` }}>
+                    <div style={{ marginTop: 22, display: "flex", flexDirection: "column", alignItems: "center", gap: 1, color: p.t }}>
+                      <span className="material-symbols-outlined fill" style={{ fontSize: p.jackpot ? 22 : 18 }}>monetization_on</span>
+                      <span style={{ fontFamily: "var(--font-numeric)", fontWeight: 800, fontSize: p.jackpot ? 22 : 18, lineHeight: 1 }}>{p.v}</span>
+                      {p.jackpot && <span style={{ fontSize: 8, fontWeight: 800, letterSpacing: ".08em" }}>JACKPOT</span>}
+                    </div>
+                  </div>
+                </React.Fragment>
+              ))}
+            </div>
+            {/* Center hub */}
+            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 3, width: 58, height: 58, borderRadius: "var(--radius-full)", background: "var(--surface-card)", border: "4px solid var(--cjx-brown)", boxShadow: "0 3px 8px rgba(48,25,18,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span className="material-symbols-outlined fill" style={{ fontSize: 28, color: "var(--cjx-yellow)", WebkitTextStroke: "1px var(--cjx-brown)" }}>star</span>
+            </div>
+          </div>
+
+          {/* Result / prompt */}
+          <div style={{ minHeight: 64, marginTop: 18, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            {won ? (
+              <div style={{ animation: "cjxPop .5s var(--ease-spring)" }}>
+                <style>{`@keyframes cjxPop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}`}</style>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-tertiary)" }}>{won.jackpot ? "แจ็กพอต! 🎉" : "ยินดีด้วย! คุณได้รับ"}</div>
+                <div style={{ marginTop: 6 }}><PointsPill points={won.v} prefix="+" icon="monetization_on" label="เหรียญ" size="lg" /></div>
+              </div>
+            ) : (
+              <p style={{ margin: 0, fontSize: 13, color: "var(--text-secondary)", maxWidth: 280, textWrap: "pretty" }}>
+                {eligible ? "หมุนวงล้อเพื่อรับเหรียญโบนัสประจำกะ ลุ้นแจ็กพอต 200 เหรียญ!" : "ปิดงานทุกอย่างให้ครบตรงเวลา แล้วกลับมาหมุนรับรางวัล"}
+              </p>
+            )}
+          </div>
+
+          {/* CTA */}
+          <div style={{ width: "100%", maxWidth: 320, marginTop: 24 }}>
+            {won && left <= 0 ? (
+              <Button variant="primary" size="lg" fullWidth icon="check_circle" onClick={collect}>เก็บเหรียญ</Button>
+            ) : (
+              <Button variant="primary" size="lg" fullWidth icon="casino" disabled={!eligible || spinning || left <= 0} onClick={spin}>
+                {spinning ? "กำลังหมุน…" : "หมุนวงล้อ"}
+              </Button>
+            )}
+            {won && left <= 0
+              ? null
+              : <button type="button" onClick={onClose} style={{ display: "block", margin: "12px auto 0", background: "none", border: "none", color: "var(--text-tertiary)", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>ไว้ภายหลัง</button>}
+          </div>
+        </div>
+        {coinsOn && <CoinRain />}
+      </div>
+    );
+  }
+
+  window.SpinWheelScreen = SpinWheelScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Store coins: balance, leaderboard, collection history (รางวัล) */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { TopAppBar, Card, PointsPill, StatusChip } = NS;
+
+  const BALANCE = 1250;
+  const GOAL = 2000;
+  const PERIOD = "16 เม.ย. – 15 พ.ค. 2569"; // rolling cycle, 16th → 15th
+
+  // Store-level leaderboard — top 3 by name + this store's standing
+  const TOP = [
+    { rank: 1, name: "สาขา ลาดพร้าว 101", focus: 31200 },
+    { rank: 2, name: "สาขา รัชดา 32", focus: 28500 },
+    { rank: 3, name: "สาขา บางนา กม.5", focus: 26100 },
+  ];
+  const ME = { rank: 6, name: "สาขา ศรีด่าน 22", focus: 24800 };
+  const MEDAL = { 1: "var(--cjx-yellow)", 2: "var(--ink-300)", 3: "#cd7f32" };
+
+  // Coin collection history — per day, broken down by shift (newest first)
+  const HISTORY = [
+    { date: "15 พ.ค.", dow: "พฤ.", shifts: [{ name: "กะเช้า", lead: "สมหญิง", coins: 45 }, { name: "กะบ่าย", lead: "วิชัย", coins: 30 }] },
+    { date: "14 พ.ค.", dow: "พ.", shifts: [{ name: "กะเช้า", lead: "สมหญิง", coins: 50 }, { name: "กะบ่าย", lead: "อรุณ", coins: 35 }] },
+    { date: "13 พ.ค.", dow: "อ.", shifts: [{ name: "กะเช้า", lead: "วิชัย", coins: 40 }, { name: "กะบ่าย", lead: "อรุณ", coins: 25 }] },
+    { date: "12 พ.ค.", dow: "จ.", shifts: [{ name: "กะเช้า", lead: "สมหญิง", coins: 55 }, { name: "กะบ่าย", lead: "มานี", coins: 30 }] },
+    { date: "11 พ.ค.", dow: "อา.", shifts: [{ name: "กะเช้า", lead: "วิชัย", coins: 35 }, { name: "กะบ่าย", lead: "มานี", coins: 20 }] },
+    { date: "10 พ.ค.", dow: "ส.", shifts: [{ name: "กะเช้า", lead: "สมหญิง", coins: 50 }, { name: "กะบ่าย", lead: "อรุณ", coins: 40 }] },
+  ];
+
+  function StoreRow({ s, me }) {
+    return (
+      <Card accent={me ? "current" : undefined} padding={12} style={me ? { background: "var(--surface-wash)" } : undefined}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 30, textAlign: "center" }}>
+            {s.rank <= 3
+              ? <span style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center", width: 34 }}>
+                  <span className="material-symbols-outlined fill" style={{ fontSize: 36, color: MEDAL[s.rank] }}>workspace_premium</span>
+                  <span style={{ position: "absolute", top: "42%", left: "50%", transform: "translate(-50%,-50%)", width: 15, height: 15, borderRadius: "var(--radius-full)", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-numeric)", fontSize: 11, fontWeight: 800, color: "var(--cjx-brown)" }}>{s.rank}</span>
+                </span>
+              : me
+                ? <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "var(--radius-full)", background: "var(--text-primary)", color: "#fff", fontFamily: "var(--font-numeric)", fontWeight: 800, fontSize: 13 }}>{s.rank}</span>
+                : <span style={{ fontFamily: "var(--font-numeric)", fontWeight: 700, color: "var(--text-tertiary)" }}>{s.rank}</span>}
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 700, fontSize: 14 }}>{s.name}</div>
+            {me && <div style={{ fontSize: 11, fontWeight: 700, color: "var(--cjx-brown)", marginTop: 1 }}>ร้านของคุณ · อันดับ {s.rank}</div>}
+          </div>
+          <PointsPill points={s.focus} prefix="฿" icon="stars" size="sm" />
+        </div>
+      </Card>
+    );
+  }
+
+  function RewardsScreen({ onMenu, onAvatar }) {
+    const [showHistory, setShowHistory] = React.useState(false);
+    return (
+      <div style={{ paddingBottom: 24 }}>
+        <TopAppBar align="left" onMenu={onMenu} title="เหรียญสะสม" subtitle="รอบ 16 – 15 ของเดือน" right={<button type="button" onClick={onAvatar} aria-label="บัญชีผู้ใช้" style={{ width: 36, height: 36, borderRadius: "var(--radius-full)", overflow: "hidden", border: "1px solid var(--border-default)", padding: 0, cursor: "pointer", background: "var(--ink-200)" }}><img src="https://i.pravatar.cc/100?img=32" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /></button>} />
+        <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+          {/* Balance hero */}
+          <Card padding={0} style={{ overflow: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "30px 16px", background: "var(--cjx-yellow)" }}>
+              <div style={{ flex: 1, minWidth: 0, textAlign: "left" }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--cjx-brown)" }}>เหรียญสะสมของร้าน</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--cjx-brown)", marginTop: 2, flexWrap: "nowrap" }}>
+                  <span className="material-symbols-outlined fill" style={{ fontSize: 38, flexShrink: 0 }}>monetization_on</span>
+                  <span style={{ fontFamily: "var(--font-numeric)", fontSize: 38, fontWeight: 700, lineHeight: 1, whiteSpace: "nowrap" }}>{BALANCE.toLocaleString()}</span>
+                </div>
+              </div>
+              <img src="./assets/mascot/mumi-excited.png" alt="" style={{ height: 70, width: "auto", flexShrink: 0 }} />
+            </div>
+          </Card>
+
+          {/* Store leaderboard */}
+          <div style={{ marginTop: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+              <span className="material-symbols-outlined fill" style={{ color: "var(--text-primary)" }}>emoji_events</span>
+              <h2 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>อันดับร้าน</h2>
+              <span style={{ fontSize: 12, color: "var(--text-tertiary)", marginLeft: "auto" }}>จัดอันดับด้วยสินค้าโฟกัส</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {TOP.map((s) => <StoreRow key={s.rank} s={s} />)}
+              <StoreRow s={ME} me />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
+  window.RewardsScreen = RewardsScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Monthly Summary & Leaderboard (สรุปประจำเดือน) */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { TopAppBar, Card, StatusChip, PointsPill } = NS;
+
+  const PEOPLE = [
+    { name: "สมหญิง ใจดี", role: "ผู้จัดการร้าน", grade: "A", pass: 98, coins: 1250, img: 5, rank: 1 },
+    { name: "วิชัย พากเพียร", role: "หัวหน้ากะ", grade: "A", pass: 94, coins: 1080, img: 32, rank: 2 },
+    { name: "อรุณ สว่างใจ", role: "หัวหน้ากะ", grade: "B", pass: 88, coins: 920, img: 18, rank: 3 },
+    { name: "มานี รักงาน", role: "หัวหน้ากะ", grade: "B", pass: 85, coins: 760, img: 45, rank: 4 },
+  ];
+  const MEDAL = { 1: "var(--cjx-yellow)", 2: "var(--ink-300)", 3: "#cd7f32" };
+
+  function Metric({ label, value, color }) {
+    return (
+      <div style={{ flex: 1, textAlign: "center" }}>
+        <div style={{ fontFamily: "var(--font-numeric)", fontSize: 24, fontWeight: 700, color: color || "var(--text-primary)", lineHeight: 1.1 }}>{value}</div>
+        <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 2 }}>{label}</div>
+      </div>
+    );
+  }
+
+  function MonthlySummaryScreen({ onMenu }) {
+    return (
+      <div style={{ paddingBottom: 24 }}>
+        <TopAppBar title="สรุปประจำเดือน" subtitle="พฤษภาคม 2569" back align="left" onMenu={onMenu} avatar={window.RES('avatar32','https://i.pravatar.cc/100?img=32')} />
+        <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 16 }}>
+
+          {/* Store month summary */}
+          <Card padding={0} style={{ overflow: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", background: "var(--surface-wash)" }}>
+              <img src={window.RES('mumiYeah','./assets/mascot/mumi-yeah.png')} alt="" style={{ height: 56 }} />
+              <div>
+                <div style={{ fontSize: 12, color: "var(--text-secondary)", fontWeight: 600 }}>เกรดร้านประจำเดือน</div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                  <span style={{ fontFamily: "var(--font-numeric)", fontSize: 36, fontWeight: 700, color: "var(--cjx-green)", lineHeight: 1 }}>A</span>
+                  <StatusChip status="passed" size="sm">ผ่านเกณฑ์</StatusChip>
+                </div>
+              </div>
+            </div>
+            <div style={{ display: "flex", padding: "14px 8px", borderTop: "1px solid var(--border-subtle)" }}>
+              <Metric label="งานทั้งหมด" value="248" />
+              <Metric label="อัตราผ่าน" value="93%" color="var(--cjx-green)" />
+              <Metric label="ต้องแก้ไข" value="17" color="var(--cjx-red)" />
+              <Metric label="เหรียญรวม" value="4.0k" color="var(--cjx-brown)" />
+            </div>
+          </Card>
+
+          {/* Individual records */}
+          <div>
+            <h2 style={{ fontSize: 16, fontWeight: 700, margin: "0 0 10px" }}>บันทึกผลรายบุคคล</h2>
+            <Card padding={0} style={{ overflow: "hidden" }}>
+              {PEOPLE.map((p, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderBottom: i < PEOPLE.length - 1 ? "1px solid var(--border-subtle)" : "none" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
+                    <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>{p.role}</div>
+                  </div>
+                  <div style={{ width: 34, height: 34, borderRadius: "var(--radius-md)", background: "var(--surface-sunken)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-numeric)", fontWeight: 800, color: p.grade === "A" ? "var(--cjx-green)" : "var(--text-primary)" }}>{p.grade}</div>
+                </div>
+              ))}
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  window.MonthlySummaryScreen = MonthlySummaryScreen;
+})();
+
+</script>
+  <script type="text/babel">
+/* CJx Operation Platform — Notifications / Escalation alerts (การแจ้งเตือน) */
+(function () {
+  const NS = window.CJExpressCJxDesignSystem_d61aba;
+  const { IconButton, Card, StatusChip } = NS;
+
+  const TYPES = {
+    escalation: { icon: "warning", color: "var(--cjx-red)", bg: "var(--red-50)" },
+    reminder:   { icon: "schedule", color: "var(--yellow-700)", bg: "var(--yellow-100)" },
+    reward:     { icon: "monetization_on", color: "var(--cjx-green)", bg: "var(--green-50)" },
+    info:       { icon: "campaign", color: "var(--cjx-blue)", bg: "var(--blue-50)" },
+  };
+
+  const TODAY = [
+    { type: "escalation", title: "งาน “ยืนยัน RTC / ของหมดอายุ” ต้องแก้ไขภายใน 07:20", body: "มีการยกระดับการแจ้งเตือนหา AM", time: "07:21", unread: true },
+    { type: "reminder", title: "ถึงเวลาปิดงานช่วง 09:00", body: "เช็คลิสต์มาตรฐาน 1 งาน รอดำเนินการ", time: "09:00", unread: true },
+    { type: "reward", title: "ได้รับ +10 เหรียญ", body: "ปิดงาน “ตรวจสอบกำลังคน” สำเร็จ", time: "06:12", unread: false },
+  ];
+  const EARLIER = [
+    { type: "info", title: "ประกาศจาก HQ", body: "อัปเดตมาตรฐานการจัดเรียงหัวชั้นรอบใหม่ เริ่ม 1 มิ.ย.", time: "เมื่อวาน", unread: false },
+    { type: "reward", title: "โบนัสสิ้นเดือนใกล้ถึงแล้ว", body: "อีก 750 เหรียญ ปลดล็อกของรางวัลพิเศษ", time: "2 วันก่อน", unread: false },
+  ];
+
+  function Row({ n }) {
+    const t = TYPES[n.type];
+    return (
+      <div style={{ display: "flex", gap: 12, padding: "12px 14px", background: n.unread ? "var(--surface-wash)" : "transparent", borderRadius: "var(--radius-md)" }}>
+        <div style={{ width: 40, height: 40, borderRadius: "var(--radius-full)", background: t.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <span className="material-symbols-outlined fill" style={{ color: t.color, fontSize: 22 }}>{t.icon}</span>
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ fontWeight: 700, fontSize: 14 }}>{n.title}</span>
+            {n.unread && <span style={{ width: 8, height: 8, borderRadius: "var(--radius-full)", background: "var(--cjx-red)" }} />}
+          </div>
+          <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 2, lineHeight: 1.4 }}>{n.body}</div>
+          <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 4, fontFamily: "var(--font-numeric)" }}>{n.time}</div>
+        </div>
+      </div>
+    );
+  }
+
+  function NotificationsScreen({ onBack }) {
+    return (
+      <div style={{ minHeight: "100%", background: "var(--surface-page)" }}>
+        <header style={{ display: "flex", alignItems: "center", gap: 8, height: 56, padding: "0 8px", background: "var(--surface-card)", borderBottom: "1px solid var(--border-subtle)", position: "sticky", top: 0, zIndex: 5 }}>
+          <IconButton icon="arrow_back" onClick={onBack} aria-label="ย้อนกลับ" />
+          <div style={{ fontWeight: 700, fontSize: 16, flex: 1 }}>การแจ้งเตือน</div>
+          <StatusChip status="fix" size="sm">2 เรื่องใหม่</StatusChip>
+        </header>
+        <div style={{ padding: "14px 16px" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".04em", color: "var(--text-tertiary)", margin: "0 4px 8px" }}>วันนี้</div>
+          <Card padding={4} style={{ marginBottom: 16 }}>
+            {TODAY.map((n, i) => <Row key={i} n={n} />)}
+          </Card>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: ".04em", color: "var(--text-tertiary)", margin: "0 4px 8px" }}>ก่อนหน้านี้</div>
+          <Card padding={4}>
+            {EARLIER.map((n, i) => <Row key={i} n={n} />)}
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  window.NotificationsScreen = NotificationsScreen;
+})();
+
+</script>
+
+  <script type="text/babel">
+    const { BottomNav, IconButton, Badge } = window.CJExpressCJxDesignSystem_d61aba;
+    const { TaskTimelineScreen, OverviewScreen, SubmitScreen, HandoverScreen, SpinWheelScreen, RewardsScreen, MonthlySummaryScreen, NotificationsScreen } = window;
+    const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "corners": "rounded",
+      "depth": "flat",
+      "mascots": true
+    }/*EDITMODE-END*/;
+
+    // Map expressive tweaks → CSS-variable overrides on the phone shell
+    function tweakVars(t) {
+      const v = {};
+      if (t.corners === "sharp") {
+        v["--radius-lg"] = "5px"; v["--radius-md"] = "4px"; v["--radius-sm"] = "2px";
+      }
+      if (t.depth === "flat") {
+        v["--shadow-sm"] = "none"; v["--shadow-md"] = "none"; v["--shadow-lg"] = "none";
+        v["--shadow-xl"] = "none"; v["--shadow-yellow"] = "none";
+        v["--border-subtle"] = "var(--border-default)";
+      }
+      return v;
+    }
+
+    function App() {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      const [tab, setTab] = React.useState("tasks");
+      const [overlay, setOverlay] = React.useState(null); // {type, title}
+      const scroller = React.useRef(null);
+
+      const go = (id) => { setOverlay(null); setTab(id); if (scroller.current) scroller.current.scrollTop = 0; };
+
+      return (
+        <div className="phone" data-mascots={t.mascots ? "on" : "off"} style={tweakVars(t)}>
+          <div className="statusbar">
+            <span>9:41</span>
+            <span className="dots">
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>signal_cellular_alt</span>
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>wifi</span>
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>battery_full</span>
+            </span>
+          </div>
+
+          <div className="screen" ref={scroller}>
+            {tab === "tasks" && <TaskTimelineScreen
+              onOpenTask={(t, c) => setOverlay({ type: "submit", title: t, coins: c })}
+              onHandover={() => setOverlay({ type: "handover" })}
+              onMenu={() => setOverlay({ type: "menu" })}
+              onAvatar={() => setOverlay({ type: "account" })}
+            />}
+            {tab === "overview" && <OverviewScreen onMonthly={() => setOverlay({ type: "monthly" })} onMenu={() => setOverlay({ type: "menu" })} onAvatar={() => setOverlay({ type: "account" })} />}
+            {tab === "rewards" && <RewardsScreen onMenu={() => setOverlay({ type: "menu" })} onAvatar={() => setOverlay({ type: "account" })} />}
+          </div>
+
+          {!overlay && (
+            <button onClick={() => setOverlay({ type: "notifications" })} aria-label="การแจ้งเตือน" style={{
+              position: "absolute", top: 44, right: 60, width: 40, height: 40, zIndex: 10,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              border: "none", background: "transparent", cursor: "pointer", color: "var(--text-primary)",
+            }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 24 }}>notifications</span>
+              <span style={{ position: "absolute", top: 4, right: 4 }}><Badge dot tone="danger" /></span>
+            </button>
+          )}
+
+          <div className="navwrap">
+            <BottomNav active={tab} onChange={go} items={[
+              { id: "overview", label: "ภาพรวม", icon: "dashboard" },
+              { id: "tasks", label: "งานวันนี้", icon: "assignment", badge: 3 },
+              { id: "rewards", label: "เหรียญ", icon: "monetization_on" },
+            ]} />
+          </div>
+
+          {overlay && overlay.type === "submit" && (
+            <div className="overlay"><SubmitScreen taskTitle={overlay.title} coins={overlay.coins} onBack={() => setOverlay(null)} /></div>
+          )}
+          {overlay && overlay.type === "handover" && (
+            <div className="overlay"><HandoverScreen onMenu={() => setOverlay(null)} onSpin={() => setOverlay({ type: "spin" })} /></div>
+          )}
+          {overlay && overlay.type === "spin" && (
+            <div className="overlay"><SpinWheelScreen eligible={true} spinsLeft={1} onClose={() => setOverlay(null)} /></div>
+          )}
+          {overlay && overlay.type === "monthly" && (
+            <div className="overlay"><MonthlySummaryScreen onMenu={() => setOverlay(null)} /></div>
+          )}
+          {overlay && overlay.type === "menu" && (
+            <div onClick={() => setOverlay(null)} style={{ position: "absolute", inset: 0, zIndex: 30, background: "rgba(11,28,48,.45)", display: "flex", animation: "fadeIn .2s var(--ease-out)" }}>
+              <div onClick={(e) => e.stopPropagation()} style={{ width: 286, maxWidth: "84%", height: "100%", background: "var(--surface-card)", display: "flex", flexDirection: "column", animation: "slideInLeft .26s var(--ease-out)", overflowY: "auto" }}>
+                {/* Drawer header */}
+                <div style={{ background: "var(--cjx-yellow)", padding: "22px 18px 18px" }}>
+                  <img src="./assets/logo/cjx-logo-transparent.png" alt="CJ Express" style={{ height: 30, display: "block", marginBottom: 14 }} />
+                  <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
+                    <img src="https://i.pravatar.cc/100?img=32" alt="" style={{ width: 42, height: 42, borderRadius: "var(--radius-full)", border: "2px solid rgba(255,255,255,.6)" }} />
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: 15, color: "var(--cjx-brown)" }}>นางสาววรณี สุขสว่าง</div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: "var(--cjx-brown)", opacity: .75 }}>CJX00072 · ศรีด่าน 22</div>
+                    </div>
+                  </div>
+                </div>
+                {/* Placeholder — future menu links go here */}
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "32px 24px", color: "var(--text-tertiary)" }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 40, color: "var(--border-strong)" }}>menu_open</span>
+                  <div style={{ fontSize: 13, marginTop: 10, lineHeight: 1.5 }}>เมนูเพิ่มเติมจะเพิ่มที่นี่</div>
+                </div>
+              </div>
+            </div>
+          )}
+          {overlay && overlay.type === "notifications" && (
+            <div className="overlay"><NotificationsScreen onBack={() => setOverlay(null)} /></div>
+          )}
+          {overlay && overlay.type === "account" && (
+            <div onClick={() => setOverlay(null)} style={{ position: "absolute", inset: 0, zIndex: 30, background: "rgba(11,28,48,.45)", display: "flex", flexDirection: "column", justifyContent: "flex-end", animation: "fadeIn .2s var(--ease-out)" }}>
+              <div onClick={(e) => e.stopPropagation()} style={{ background: "var(--surface-card)", borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: "20px 20px calc(20px + env(safe-area-inset-bottom))", animation: "slideUp .26s var(--ease-out)" }}>
+                <div style={{ width: 36, height: 4, borderRadius: 2, background: "var(--border-strong)", margin: "0 auto 18px" }} />
+                <div style={{ display: "flex", alignItems: "center", gap: 12, paddingBottom: 16, borderBottom: "1px solid var(--border-subtle)" }}>
+                  <img src="https://i.pravatar.cc/100?img=32" alt="" style={{ width: 52, height: 52, borderRadius: "var(--radius-full)" }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: 16 }}>นางสาววรณี สุขสว่าง</div>
+                    <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>ผู้จัดการร้าน · CJX00072 ศรีด่าน 22</div>
+                  </div>
+                </div>
+                <button type="button" onClick={() => setOverlay(null)} style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "14px 4px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 600, color: "var(--text-primary)", borderBottom: "1px solid var(--border-subtle)" }}>
+                  <span className="material-symbols-outlined" style={{ color: "var(--text-secondary)" }}>person</span>ข้อมูลบัญชี
+                </button>
+                <button type="button" onClick={() => setOverlay(null)} style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "14px 4px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 600, color: "var(--text-primary)", borderBottom: "1px solid var(--border-subtle)" }}>
+                  <span className="material-symbols-outlined" style={{ color: "var(--text-secondary)" }}>settings</span>ตั้งค่า
+                </button>
+                <button type="button" onClick={() => { window.__cjxGo && window.__cjxGo("login"); }} style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "14px 4px", marginTop: 4, background: "transparent", border: "none", cursor: "pointer", textAlign: "left", fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: "var(--cjx-red)" }}>
+                  <span className="material-symbols-outlined" style={{ color: "var(--cjx-red)" }}>logout</span>ออกจากระบบ
+                </button>
+              </div>
+            </div>
+          )}
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="รูปลักษณ์" />
+            <TweakRadio label="มุมการ์ด" value={t.corners}
+              options={[{ value: "rounded", label: "มน" }, { value: "sharp", label: "เหลี่ยม" }]}
+              onChange={(v) => setTweak("corners", v)} />
+            <TweakRadio label="น้ำหนักเงา" value={t.depth}
+              options={[{ value: "elevated", label: "ลอยเด่น" }, { value: "flat", label: "แบนเรียบ" }]}
+              onChange={(v) => setTweak("depth", v)} />
+            <TweakSection label="บุคลิก" />
+            <TweakToggle label="น้องมุมิ" value={t.mascots}
+              onChange={(v) => setTweak("mascots", v)} />
+          </TweaksPanel>
+        </div>
+      );
+    }
+    window.AppRoot = App;
+  </script>
+
+  <script type="text/babel">
+
+    const { Input, Button, Select } = window.CJExpressCJxDesignSystem_d61aba;
+    const { useTweaks, TweaksPanel, TweakSection, TweakRadio } = window;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "heroTone": "festive",
+      "mascot": "songkran",
+      "corners": "sharp"
+    }/*EDITMODE-END*/;
+
+    const THEMES = {
+      festive: { heroBg: "var(--cjx-yellow)", statusFg: "var(--cjx-brown)" },
+      cream:   { heroBg: "var(--yellow-100)", statusFg: "var(--cjx-brown)" },
+      sky:     { heroBg: "var(--blue-50)",    statusFg: "var(--cjx-blue)" },
+    };
+    const MASCOTS = {
+      songkran: "./assets/mascot/mumi-songkran.png",
+      hero: "./assets/mascot/mumi-hero.png",
+      heart: "./assets/mascot/mumi-heart.png",
+    };
+
+    // Employee directory for this store (would come from the backend)
+    const STORE = "สาขาศรีด่าน 22";
+    const NAMES = [
+      "นางสาววรณี สุขสว่าง",
+      "นายสมชาย ใจดี",
+      "นางสาวสมหญิง รักงาน",
+      "นายวิชัย พากเพียร",
+      "นางสาวอรุณ แสงทอง",
+    ];
+    const NAME_OPTS = [...NAMES.map((n) => ({ value: n, label: n })), { value: "__other", label: "— ไม่พบชื่อของฉันในรายการ —" }];
+    const POS_OPTS = [
+      { value: "mgr", label: "ผู้จัดการร้าน" },
+      { value: "am", label: "ผู้ช่วยเช้า" },
+      { value: "pm", label: "ผู้ช่วยบ่าย" },
+    ];
+
+    function LoginScreen() {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      const [empId, setEmpId] = React.useState("");
+      const [step, setStep] = React.useState("login"); // login | profile
+      const [empName, setEmpName] = React.useState("");
+      const [empNo, setEmpNo] = React.useState("");
+      const [position, setPosition] = React.useState("");
+
+      const submit = () => { setStep("profile"); const s = document.querySelector(".screen"); if (s) s.scrollTop = 0; };
+      const nameOk = empName && (empName !== "__other" || empNo.trim().length >= 4);
+      const profileValid = nameOk && position;
+      const enter = () => { if (profileValid) { window.__cjxGo("app"); } };
+
+      const theme = THEMES[t.heroTone] || THEMES.festive;
+      const sharp = t.corners === "sharp";
+      const heroCorner = sharp ? 12 : 36;
+      const phoneVars = sharp ? { "--radius-lg": "6px", "--radius-md": "5px", "--radius-sm": "3px" } : {};
+
+      return (
+        <div className="phone" style={phoneVars}>
+          <div className="statusbar" style={{ background: theme.heroBg, color: theme.statusFg }}>
+            <span>9:41</span>
+            <span className="dots">
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>signal_cellular_alt</span>
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>wifi</span>
+              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>battery_full</span>
+            </span>
+          </div>
+
+          <div className="screen">
+            {step === "login" && (<React.Fragment>
+            {/* Brand hero */}
+            <div style={{
+              position: "relative", background: theme.heroBg,
+              borderBottomLeftRadius: heroCorner, borderBottomRightRadius: heroCorner,
+              padding: "20px 24px 0", textAlign: "center", overflow: "hidden",
+            }}>
+              {/* soft decorative dots */}
+              <div style={{ position: "absolute", top: 70, left: -30, width: 90, height: 90, borderRadius: "50%", background: "rgba(255,255,255,.14)" }} />
+
+              <div style={{ position: "relative", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                <div style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 150, height: 150, borderRadius: "50%", background: "rgba(255,255,255,.18)" }} />
+                  <img src="./assets/logo/cjx-logo-transparent.png" alt="CJ Express" style={{ position: "relative", height: 92 }} />
+                </div>
+              </div>
+
+              <img src={MASCOTS[t.mascot] || MASCOTS.songkran} alt="" style={{ position: "relative", height: 224, width: "auto", marginTop: 2, marginBottom: -6 }} />
+            </div>
+
+            {/* Form */}
+            <div style={{ padding: "26px 24px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <h1 style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 800, margin: 0, color: "var(--text-primary)" }}>เข้าสู่ระบบ</h1>
+                <p style={{ fontSize: 13, color: "var(--text-tertiary)", margin: "4px 0 0" }}>ระบบปฏิบัติการหน้าร้าน CJx</p>
+              </div>
+
+              <Input label="อีเมลร้าน" icon="mail" placeholder="เช่น CJX0000@cjmart.co.th"
+                value={empId} onChange={(e) => setEmpId(e.target.value)} type="email" />
+
+              <Button variant="primary" size="lg" fullWidth icon="login" onClick={submit} style={{ marginTop: 4 }}>เข้าสู่ระบบ</Button>
+
+              <div style={{ textAlign: "center", marginTop: 8 }}>
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>ต้องการความช่วยเหลือ? <a href="#" onClick={(e) => e.preventDefault()} style={{ color: "var(--text-secondary)", fontWeight: 700, textDecoration: "none" }}>ติดต่อ admin</a></div>
+                <div style={{ fontSize: 11, color: "var(--text-disabled)", marginTop: 12 }}>CJ Express · เวอร์ชัน 1.0.0</div>
+              </div>
+            </div>
+            </React.Fragment>)}
+
+            {step === "profile" && (
+            <div>
+              {/* Brand hero — matches login scale & logo placement */}
+              <div style={{ position: "relative", background: theme.heroBg, borderBottomLeftRadius: heroCorner, borderBottomRightRadius: heroCorner, padding: "20px 24px 28px", textAlign: "center", overflow: "hidden" }}>
+                {/* soft decorative dot — same as login */}
+                <div style={{ position: "absolute", top: 70, left: -30, width: 90, height: 90, borderRadius: "50%", background: "rgba(255,255,255,.14)" }} />
+                {/* logo top-right in glow circle — same as login */}
+                <div style={{ position: "relative", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                  <div style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 130, height: 130, borderRadius: "50%", background: "rgba(255,255,255,.18)" }} />
+                    <img src="./assets/logo/cjx-logo-transparent.png" alt="CJ Express" style={{ position: "relative", height: 72 }} />
+                  </div>
+                </div>
+                <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 4 }}>
+                  <img src="./assets/mascot/mumi-hero.png" alt="" style={{ height: 96, width: "auto" }} />
+                  <div style={{ textAlign: "left" }}>
+                    <div style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 800, color: "var(--cjx-brown)", lineHeight: 1.15 }}>ยินดีต้อนรับ</div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: "var(--cjx-brown)", opacity: .8, marginTop: 2 }}>{STORE}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Profile form */}
+              <div style={{ padding: "24px 24px", display: "flex", flexDirection: "column", gap: 16 }}>
+                <div>
+                  <h1 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 800, margin: 0, color: "var(--text-primary)" }}>เลือกโปรไฟล์ของคุณ</h1>
+                  <p style={{ fontSize: 13, color: "var(--text-tertiary)", margin: "4px 0 0" }}>ระบุชื่อและตำแหน่งก่อนเริ่มกะ</p>
+                </div>
+
+                <Select label="ชื่อพนักงาน" placeholder="เลือกชื่อของคุณ" options={NAME_OPTS}
+                  value={empName} onChange={(e) => setEmpName(e.target.value)} />
+
+                {empName === "__other" && (
+                  <Input label="รหัสพนักงาน" icon="badge" placeholder="เช่น 8001234" inputMode="numeric"
+                    value={empNo} onChange={(e) => setEmpNo(e.target.value.replace(/[^0-9]/g, ""))}
+                    helper="กรอกรหัสพนักงานหากไม่พบชื่อในรายการ" />
+                )}
+
+                <Select label="หน้าที่วันนี้" placeholder="เลือกหน้าที่" options={POS_OPTS}
+                  value={position} onChange={(e) => setPosition(e.target.value)} />
+
+                <Button variant="primary" size="lg" fullWidth icon="login" disabled={!profileValid} onClick={enter} style={{ marginTop: 4 }}>เข้าสู่ระบบ</Button>
+
+                <button type="button" onClick={() => setStep("login")} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, margin: "2px auto 0", background: "none", border: "none", cursor: "pointer", color: "var(--text-tertiary)", fontFamily: "var(--font-display)", fontSize: 13, fontWeight: 600 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_back</span>ย้อนกลับ
+                </button>
+              </div>
+            </div>
+            )}
+          </div>
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="รูปลักษณ์" />
+            <TweakRadio label="โทนหน้าจอ" value={t.heroTone}
+              options={[{ value: "festive", label: "ฉลอง" }, { value: "cream", label: "ละมุน" }, { value: "sky", label: "สดชื่น" }]}
+              onChange={(v) => setTweak("heroTone", v)} />
+            <TweakRadio label="มุมการ์ด" value={t.corners}
+              options={[{ value: "rounded", label: "มน" }, { value: "sharp", label: "เหลี่ยม" }]}
+              onChange={(v) => setTweak("corners", v)} />
+            <TweakSection label="บุคลิก" />
+            <TweakRadio label="น้องมุมิ" value={t.mascot}
+              options={[{ value: "songkran", label: "สงกรานต์" }, { value: "hero", label: "ยกนิ้ว" }, { value: "heart", label: "หัวใจ" }]}
+              onChange={(v) => setTweak("mascot", v)} />
+          </TweaksPanel>
+        </div>
+      );
+    }
+    window.LoginScreen = LoginScreen;
+  
+  </script>
+
+  <script type="text/babel">
+    const __cjxRoot = ReactDOM.createRoot(document.getElementById("root"));
+    window.__cjxGo = function (route) {
+      const C = route === "app" ? window.AppRoot : window.LoginScreen;
+      const s = document.querySelector(".screen"); if (s) s.scrollTop = 0;
+      __cjxRoot.render(React.createElement(C));
+    };
+    window.__cjxGo("login");
+  </script>
+
+
+</body></html>

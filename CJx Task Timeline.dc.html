@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<style>
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal; font-style: normal; font-size: 24px;
+  line-height: 1; letter-spacing: normal; text-transform: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1em; min-width: 1em; white-space: nowrap;
+  -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased;
+}
+.material-symbols-outlined.fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pop { 0% { transform: scale(.55); opacity: 0; } 65% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #dde0e3; font-family: 'Anuphan', system-ui, sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+</style>
+</helmet>
+
+<!-- Outer wrapper -->
+<div style="{{ outerStyle }}">
+  <!-- Phone shell -->
+  <div style="{{ phoneStyle }}">
+
+    <!-- Status bar -->
+    <div style="height:36px; background:#fff; flex-shrink:0; display:flex; align-items:center; justify-content:space-between; padding:0 22px; font-size:13px; font-weight:700; color:#131b2e;">
+      <span>09:42</span>
+      <div style="display:flex; gap:4px; align-items:center;">
+        <span class="material-symbols-outlined" style="font-size:16px; color:#131b2e;">signal_cellular_alt</span>
+        <span class="material-symbols-outlined" style="font-size:16px; color:#131b2e;">wifi</span>
+        <span class="material-symbols-outlined" style="font-size:16px; color:#131b2e;">battery_5_bar</span>
+      </div>
+    </div>
+
+    <!-- App bar -->
+    <div style="height:56px; background:#fff; flex-shrink:0; display:flex; align-items:center; gap:8px; padding:0 8px 0 4px; border-bottom:1px solid #e2e6ec;">
+      <button style="width:44px; height:44px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#3a4453; flex-shrink:0;">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div style="flex:1; min-width:0;">
+        <div style="font-weight:700; font-size:16px; color:#0b1c30; line-height:1.2;">งานวันนี้</div>
+        <div style="font-size:12px; color:#7a8494; line-height:1.2;">{{ dateLabel }}</div>
+      </div>
+      <div style="{{ roleChipStyle }}">{{ roleName }}</div>
+      <div style="width:36px; height:36px; border-radius:50%; background:#e2e6ec; overflow:hidden; flex-shrink:0; margin-right:6px;">
+        <img src="https://i.pravatar.cc/72?img=32" alt="" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+    </div>
+
+    <!-- Scrollable body -->
+    <div style="flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;">
+
+      <!-- Role selector -->
+      <div style="padding:12px 16px 8px; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;">
+        <button style="{{ managerStyle }}" onClick="{{ setManager }}">ผู้จัดการร้าน</button>
+        <button style="{{ morningStyle }}" onClick="{{ setMorning }}">ผู้ช่วยเช้า</button>
+        <button style="{{ afternoonStyle }}" onClick="{{ setAfternoon }}">ผู้ช่วยบ่าย</button>
+      </div>
+
+      <!-- Stats grid -->
+      <div style="padding:4px 16px 14px; display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+        <div style="background:#131b2e; border-radius:10px; padding:10px 6px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#fff; line-height:1;">{{ totalCount }}</div>
+          <div style="font-size:10px; color:rgba(255,255,255,.6); margin-top:3px;">ทั้งหมด</div>
+        </div>
+        <div style="background:#eef1f5; border-radius:10px; padding:10px 6px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#3a4453; line-height:1;">{{ pendingCount }}</div>
+          <div style="font-size:10px; color:#7a8494; margin-top:3px;">รอทำ</div>
+        </div>
+        <div style="background:#fdebec; border-radius:10px; padding:10px 6px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#ee2e3c; line-height:1;">{{ failCount }}</div>
+          <div style="font-size:10px; color:#d11e2b; margin-top:3px;">ต้องแก้</div>
+        </div>
+        <div style="background:#e7f7ee; border-radius:10px; padding:10px 6px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#009d4f; line-height:1;">{{ doneCount }}</div>
+          <div style="font-size:10px; color:#008544; margin-top:3px;">ผ่านแล้ว</div>
+        </div>
+      </div>
+
+      <!-- Section label -->
+      <div style="padding:2px 16px 10px; display:flex; align-items:center; justify-content:space-between;">
+        <div style="font-size:12px; font-weight:700; color:#7a8494; letter-spacing:.05em; text-transform:uppercase;">งานที่ต้องทำวันนี้</div>
+        <div style="font-size:12px; color:#98a2b3;">{{ activeBlockCount }} กลุ่ม</div>
+      </div>
+
+      <!-- Time block accordion -->
+      <div style="padding:0 16px; display:flex; flex-direction:column; gap:10px;">
+        <sc-for list="{{ timeBlocks }}" as="block" hint-placeholder-count="4">
+          <div>
+            <!-- Block header -->
+            <button style="{{ block.headerStyle }}" onClick="{{ block.toggleExpand }}">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span class="material-symbols-outlined" style="font-size:18px; color:rgba(255,255,255,.55); flex-shrink:0;">schedule</span>
+                <div style="text-align:left;">
+                  <div style="font-size:14px; font-weight:700; color:#fff;">{{ block.label }}</div>
+                  <div style="font-size:11px; color:rgba(255,255,255,.55); margin-top:1px;">{{ block.totalCount }} งาน</div>
+                </div>
+                <sc-if value="{{ block.hasFailures }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ block.failBadgeStyle }}">
+                    <span class="material-symbols-outlined fill" style="font-size:11px;">cancel</span>
+                    {{ block.failCount }} ต้องแก้
+                  </div>
+                </sc-if>
+              </div>
+              <span class="material-symbols-outlined" style="{{ block.chevronStyle }}">expand_more</span>
+            </button>
+
+            <!-- Tasks (collapsible) -->
+            <sc-if value="{{ block.expanded }}" hint-placeholder-val="{{ true }}">
+              <div style="{{ block.tasksWrapStyle }}">
+                <sc-for list="{{ block.tasks }}" as="task" hint-placeholder-count="2">
+                  <div style="{{ task.cardStyle }}" onClick="{{ task.onClick }}">
+                    <div style="padding:12px 14px;">
+                      <!-- Row 1: badge + title + chip -->
+                      <div style="display:flex; align-items:flex-start; gap:9px; margin-bottom:7px;">
+                        <div style="{{ task.evidenceBadgeStyle }}">
+                          <span class="material-symbols-outlined" style="{{ task.evidenceIconStyle }}">{{ task.evIcon }}</span>
+                        </div>
+                        <div style="flex:1; font-weight:700; font-size:14px; line-height:1.35; color:#0b1c30; padding-top:1px;">{{ task.title }}</div>
+                        <sc-if value="{{ task.isSystem }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size:11px; color:#98a2b3; white-space:nowrap; padding-top:3px;">ระบบ</span>
+                        </sc-if>
+                        <sc-if value="{{ task.notSystem }}" hint-placeholder-val="{{ true }}">
+                          <div style="{{ task.chipStyle }}">
+                            <span class="material-symbols-outlined fill" style="font-size:12px;">{{ task.chipIcon }}</span>
+                            {{ task.chipLabel }}
+                          </div>
+                        </sc-if>
+                      </div>
+                      <!-- Desc -->
+                      <div style="font-size:12px; color:#5a6472; line-height:1.5; margin-bottom:8px; padding-left:35px;">{{ task.desc }}</div>
+                      <!-- Deadline -->
+                      <sc-if value="{{ task.hasDeadline }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:flex; align-items:center; gap:6px; padding-left:35px; flex-wrap:wrap;">
+                          <span class="material-symbols-outlined" style="font-size:13px; color:#98a2b3;">schedule</span>
+                          <span style="font-size:12px; color:#98a2b3;">ภายใน {{ task.deadline }}</span>
+                          <sc-if value="{{ task.showDeadlineWarning }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size:11px; font-weight:700; color:#ee2e3c; background:#fdebec; padding:2px 8px; border-radius:999px; display:inline-flex; align-items:center; gap:3px;">
+                              <span class="material-symbols-outlined fill" style="font-size:11px;">warning</span>
+                              ต้องแก้ไขภายในกำหนด
+                            </span>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- Done section -->
+      <sc-if value="{{ hasDoneTasks }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:12px 16px 0;">
+          <button style="display:flex; align-items:center; gap:8px; width:100%; padding:11px 14px; background:#fff; border:1px solid #e2e6ec; border-radius:10px; cursor:pointer; font-family:'Anuphan',system-ui,sans-serif; font-weight:700; font-size:14px; color:#5a6472;" onClick="{{ toggleDone }}">
+            <span class="material-symbols-outlined fill" style="font-size:20px; color:#009d4f; flex-shrink:0;">check_circle</span>
+            <span style="flex:1; text-align:left;">งานที่เสร็จแล้ว</span>
+            <span style="font-size:12px; font-weight:700; color:#009d4f; background:#e7f7ee; padding:2px 9px; border-radius:999px;">{{ doneCount }}</span>
+            <span class="material-symbols-outlined" style="{{ doneChevStyle }}">expand_more</span>
+          </button>
+          <sc-if value="{{ showDone }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+              <sc-for list="{{ doneTasks }}" as="dt" hint-placeholder-count="1">
+                <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#fff; border-radius:10px; border:1px solid #e2e6ec; opacity:.75;">
+                  <span class="material-symbols-outlined fill" style="font-size:20px; color:#009d4f; flex-shrink:0;">check_circle</span>
+                  <div style="flex:1; min-width:0;">
+                    <div style="font-size:13px; font-weight:600; color:#5a6472; text-decoration:line-through; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ dt.title }}</div>
+                    <div style="font-size:11px; color:#98a2b3; margin-top:1px;">{{ dt.timeBlockLabel }}</div>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:#009d4f; background:#e7f7ee; padding:2px 8px; border-radius:999px; white-space:nowrap;">+{{ dt.coins }} เหรียญ</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- Handover CTA -->
+      <div style="padding:20px 16px 96px;">
+        <button style="width:100%; height:52px; background:#ffdc00; color:#301912; font-family:'Anuphan',system-ui,sans-serif; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 6px 16px rgba(255,220,0,.38);">
+          <span class="material-symbols-outlined">swap_horiz</span>
+          ส่งงานปิดกะ
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div style="position:absolute; bottom:0; left:0; right:0; height:68px; background:#fff; border-top:1px solid #e2e6ec; display:flex; align-items:flex-start; justify-content:space-around; padding:8px 0 0; z-index:10;">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer;">
+        <div style="width:32px; height:32px; background:#fffdf0; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+          <span class="material-symbols-outlined fill" style="font-size:20px; color:#301912;">task</span>
+        </div>
+        <span style="font-size:10px; font-weight:700; color:#301912;">งาน</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer;">
+        <div style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">
+          <span class="material-symbols-outlined" style="font-size:20px; color:#98a2b3;">bar_chart</span>
+        </div>
+        <span style="font-size:10px; font-weight:600; color:#98a2b3;">ภาพรวม</span>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; cursor:pointer;">
+        <div style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">
+          <span class="material-symbols-outlined" style="font-size:20px; color:#98a2b3;">swap_horiz</span>
+        </div>
+        <span style="font-size:10px; font-weight:600; color:#98a2b3;">ส่งต่อกะ</span>
+      </div>
+    </div>
+
+    <!-- ===== TASK SUBMISSION OVERLAY ===== -->
+    <sc-if value="{{ overlayOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; background:rgba(11,28,48,.6); z-index:50; display:flex; flex-direction:column; justify-content:flex-end;" onClick="{{ closeOverlay }}">
+        <div style="background:#fff; border-radius:24px 24px 0 0; animation:slideUp .28s cubic-bezier(.16,1,.3,1); max-height:90%; overflow-y:auto;" onClick="{{ stopPropagation }}">
+          <!-- Handle -->
+          <div style="width:40px; height:4px; background:#e2e6ec; border-radius:999px; margin:12px auto 0;"></div>
+
+          <!-- FORM STEP -->
+          <sc-if value="{{ isFormStep }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:16px 20px 36px;">
+              <div style="font-weight:700; font-size:17px; color:#0b1c30; margin-bottom:4px; line-height:1.3;">{{ selTitle }}</div>
+              <div style="font-size:13px; color:#5a6472; margin-bottom:14px; line-height:1.5;">{{ selDesc }}</div>
+              <!-- Pass note -->
+              <div style="background:#fffdf0; border:1px solid rgba(255,220,0,.5); border-radius:10px; padding:10px 12px; margin-bottom:16px; display:flex; gap:8px; align-items:flex-start;">
+                <span class="material-symbols-outlined" style="font-size:16px; color:#b89700; flex-shrink:0; margin-top:1px;">fact_check</span>
+                <div style="font-size:12px; color:#301912; line-height:1.5;"><strong>เกณฑ์ผ่าน: </strong>{{ selPassNote }}</div>
+              </div>
+              <!-- Photo slots -->
+              <sc-if value="{{ selIsPhoto }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-bottom:16px;">
+                  <div style="font-size:13px; font-weight:600; color:#5a6472; margin-bottom:8px;">รูปหลักฐาน</div>
+                  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+                    <div style="aspect-ratio:1; border-radius:10px; background:#eaeff7; border:1px solid rgba(25,71,147,.2); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+                      <span class="material-symbols-outlined fill" style="font-size:28px; color:#194793;">image</span>
+                      <span style="font-size:10px; color:#194793; font-weight:600;">รูปที่ 1</span>
+                    </div>
+                    <div style="aspect-ratio:1; border-radius:10px; background:#eaeff7; border:1px solid rgba(25,71,147,.2); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;">
+                      <span class="material-symbols-outlined fill" style="font-size:28px; color:#194793;">image</span>
+                      <span style="font-size:10px; color:#194793; font-weight:600;">รูปที่ 2</span>
+                    </div>
+                    <div style="aspect-ratio:1; border-radius:10px; background:#f5f6f8; border:2px dashed #cbd2dc; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; cursor:pointer;">
+                      <span class="material-symbols-outlined" style="font-size:26px; color:#98a2b3;">add_a_photo</span>
+                      <span style="font-size:10px; color:#98a2b3;">แนบรูป</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+              <!-- Confirm slot -->
+              <sc-if value="{{ selIsConfirm }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#f5f6f8; border-radius:10px; padding:14px 16px; margin-bottom:16px; display:flex; align-items:center; gap:10px;">
+                  <span class="material-symbols-outlined fill" style="font-size:24px; color:#009d4f;">task_alt</span>
+                  <div style="font-size:13px; color:#3a4453; font-weight:600;">ยืนยันว่าดำเนินการเสร็จแล้ว</div>
+                </div>
+              </sc-if>
+              <!-- Redo hint -->
+              <sc-if value="{{ selIsRedone }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:600; margin-bottom:12px; padding:8px 12px; background:#fdebec; border-radius:8px; color:#d11e2b;">
+                  <span class="material-symbols-outlined" style="font-size:16px;">history</span>
+                  {{ selAttemptsLabel }}
+                </div>
+              </sc-if>
+              <!-- Submit -->
+              <button style="width:100%; height:52px; background:#ffdc00; color:#301912; font-family:'Anuphan',system-ui,sans-serif; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 14px rgba(255,220,0,.4);" onClick="{{ submitTask }}">
+                <span class="material-symbols-outlined">fact_check</span>
+                ส่งตรวจสอบ
+              </button>
+            </div>
+          </sc-if>
+
+          <!-- PROCESSING STEP -->
+          <sc-if value="{{ isProcessingStep }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:48px 24px 60px; display:flex; flex-direction:column; align-items:center; text-align:center;">
+              <div style="width:72px; height:72px; border-radius:50%; border:4px solid #fff8d1; border-top-color:#ffdc00; animation:spin .9s linear infinite; margin-bottom:24px;"></div>
+              <div style="font-weight:700; font-size:18px; color:#0b1c30; margin-bottom:8px;">กำลังตรวจสอบรูปถ่าย…</div>
+              <div style="font-size:13px; color:#7a8494; max-width:260px; line-height:1.5;">ระบบกำลังประมวลผลภาพเพื่อตรวจมาตรฐานงาน</div>
+            </div>
+          </sc-if>
+
+          <!-- PASS STEP -->
+          <sc-if value="{{ isPassStep }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:32px 24px 44px; display:flex; flex-direction:column; align-items:center; text-align:center;">
+              <div style="width:84px; height:84px; border-radius:50%; background:#e7f7ee; display:flex; align-items:center; justify-content:center; animation:pop .5s cubic-bezier(.34,1.56,.64,1); margin-bottom:16px;">
+                <span class="material-symbols-outlined fill" style="font-size:48px; color:#009d4f;">check_circle</span>
+              </div>
+              <div style="font-size:11px; font-weight:800; letter-spacing:.06em; color:#009d4f; margin-bottom:8px; text-transform:uppercase;">ผ่านการตรวจสอบ</div>
+              <div style="font-weight:700; font-size:22px; color:#0b1c30; margin-bottom:6px;">เยี่ยมมาก! ปิดงานสำเร็จ</div>
+              <div style="font-size:13px; color:#7a8494; margin-bottom:22px; max-width:280px; line-height:1.5;">{{ selTitle }}</div>
+              <div style="display:inline-flex; align-items:center; gap:8px; background:#fff8d1; border:1.5px solid rgba(255,220,0,.6); border-radius:999px; padding:9px 22px; margin-bottom:28px;">
+                <span class="material-symbols-outlined fill" style="font-size:22px; color:#301912;">monetization_on</span>
+                <span style="font-size:19px; font-weight:800; color:#301912;">+{{ selCoins }} เหรียญ</span>
+              </div>
+              <button style="width:100%; max-width:300px; height:52px; background:#ffdc00; color:#301912; font-family:'Anuphan',system-ui,sans-serif; font-size:16px; font-weight:700; border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 14px rgba(255,220,0,.4);" onClick="{{ confirmDone }}">
+                เก็บเหรียญ ✓
+              </button>
+            </div>
+          </sc-if>
+
+          <!-- FAIL STEP -->
+          <sc-if value="{{ isFailStep }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:28px 24px 40px; display:flex; flex-direction:column; align-items:center; text-align:center;">
+              <div style="width:84px; height:84px; border-radius:50%; background:#fdebec; display:flex; align-items:center; justify-content:center; animation:pop .5s cubic-bezier(.34,1.56,.64,1); margin-bottom:16px;">
+                <span class="material-symbols-outlined fill" style="font-size:48px; color:#ee2e3c;">cancel</span>
+              </div>
+              <div style="font-size:11px; font-weight:800; letter-spacing:.06em; color:#ee2e3c; margin-bottom:8px; text-transform:uppercase;">ไม่ผ่านการตรวจสอบ</div>
+              <div style="font-weight:700; font-size:20px; color:#0b1c30; margin-bottom:16px;">แก้ไขงานและส่งอีกครั้ง</div>
+              <div style="width:100%; background:#fff; border:1px solid #e2e6ec; border-radius:12px; border-left:4px solid #ee2e3c; padding:14px 16px; margin-bottom:20px; text-align:left; display:flex; align-items:center; gap:10px;">
+                <span class="material-symbols-outlined" style="font-size:22px; color:#ee2e3c; flex-shrink:0;">timer</span>
+                <div>
+                  <div style="font-weight:700; font-size:14px; margin-bottom:3px;">แก้ไขภายในกำหนด</div>
+                  <div style="font-size:12px; color:#5a6472; line-height:1.5;">ภายใน {{ selDeadline }} · หากเลยกำหนดจะแจ้งไปยัง AM</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; width:100%;">
+                <button style="flex:1; height:48px; background:#f5f6f8; color:#3a4453; font-family:'Anuphan',system-ui,sans-serif; font-size:14px; font-weight:700; border:none; border-radius:12px; cursor:pointer;" onClick="{{ closeOverlay }}">ภายหลัง</button>
+                <button style="flex:1.6; height:48px; background:#ee2e3c; color:#fff; font-family:'Anuphan',system-ui,sans-serif; font-size:13px; font-weight:700; border:none; border-radius:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;" onClick="{{ redoTask }}">
+                  <span class="material-symbols-outlined" style="font-size:18px;">add_a_photo</span>
+                  ถ่ายใหม่ & ส่งอีกครั้ง
+                </button>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 390, &quot;height&quot;: 844 },
+  &quot;role&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;manager&quot;,&quot;morning&quot;,&quot;afternoon&quot;], &quot;default&quot;: &quot;manager&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  TASKS = [
+    // ── กะเช้า ──────────────────────────────────────────────
+    {id:'m1',shift:'morning',block:'b1',deadline:'5:45', title:'เปิดร้านและเช็คกำลังพล',     desc:'ถ่ายรูปเซลฟี่กับทีม นับจำนวนคนในกะ',                     evidence:'photo',  passNote:'จำนวนคนในรูปตรงกับตารางกะ',               coins:10},
+    {id:'m2',shift:'morning',block:'b1',deadline:'6:00', title:'เปิดกะให้ทันก่อน 6:00',      desc:'ถ่ายรูปใบเปิดกะที่ปริ้นจาก POS ทุกเครื่อง',              evidence:'photo',  passNote:'เปิดกะทุกเครื่อง POS ครบก่อน 6:00',        coins:10},
+    {id:'m3',shift:'morning',block:'b1',deadline:'6:00', title:'ทำความสะอาดและถ่ายรูป',      desc:'หน้าร้าน + ในร้าน + ห้องสต็อก + บ่อดัก',                  evidence:'photo',  passNote:'มีรูปครบทุกมุม = ผ่าน',                    coins:5},
+    {id:'m4',shift:'morning',block:'b2',deadline:'8:00', title:'หาสินค้าใกล้หมดอายุ – RTC',  desc:'รูปสินค้า RTC หรือกดยืนยันว่าไม่พบสินค้า',               evidence:'photo',  passNote:'มีการทำ RTC ครบ หรือยืนยันไม่พบ',           coins:15},
+    {id:'m5',shift:'morning',block:'b2',deadline:'8:00', title:'เติมหัวชั้น ตั้งกอง ให้เต็ม', desc:'รูปหัวชั้น ตั้งกอง ไม่มีรูโล่ง',                         evidence:'photo',  passNote:'หัวชั้น <2%, ตั้งกอง = 0% รูโล่ง',         coins:20},
+    {id:'m6',shift:'morning',block:'b2',deadline:'8:00', title:'ติดสื่อใหม่',                 desc:'ถ่ายรูปสื่อกระจกหน้าร้านทุกจุด',                         evidence:'photo',  passNote:'มีรูปสื่อหน้าร้านครบ = ผ่าน',              coins:5},
+    {id:'m7',shift:'morning',block:'b2',deadline:'8:00', title:'ตรวจสอบประกาศด่วน',          desc:'รับทราบและดำเนินการตามประกาศจากสำนักงานใหญ่',            evidence:'confirm',passNote:'ปิดประกาศในระบบ = ผ่าน',                   coins:5},
+    {id:'m8',shift:'morning',block:'b2',deadline:'8:00', title:'ตรวจสอบอุณหภูมิตู้แช่',      desc:'ถ่ายรูปอุณหภูมิตามตู้แช่ที่กำหนดทุกตู้',                 evidence:'photo',  passNote:'มีรูปอุณหภูมิทุกตู้ = ผ่าน',              coins:10},
+    {id:'m9',shift:'morning',block:'b3',deadline:'10:00',title:'ติดป้ายสินค้าใหม่',          desc:'ใส่ป้ายโปรใหม่ ถ่ายรูปยืนยัน เฉพาะโปร 1 วัน',           evidence:'photo',  passNote:'จำนวนป้ายรอพิมพ์ = 0',                    coins:10},
+    {id:'m10',shift:'morning',block:'b3',deadline:'10:00',title:'ปิดรูโล่ง',                 desc:'เติมสินค้ารูโล่ง ถ่ายรูป dashboard OOB',                  evidence:'photo',  passNote:'OOB ≤ 20 = ผ่าน',                          coins:15},
+    {id:'m11',shift:'morning',block:'b4',deadline:'12:00',title:'เคลียร์ Tote',              desc:'รูปห้องสต็อก ไม่มี tote ค้างลัง',                        evidence:'photo',  passNote:'ไม่มี tote ค้างหลังร้าน = ผ่าน',           coins:10},
+    {id:'m12',shift:'morning',block:'b4',deadline:'12:00',title:'เติมสินค้าตามรอบ',          desc:'ปิดงานในเมนูเติมตามรอบ ถ่ายรูปเบย์ที่เติม',              evidence:'confirm',passNote:'ไม่มี task ค้างในเมนูเติมตามรอบ',           coins:10},
+    {id:'m13',shift:'morning',block:'b5',deadline:'14:00',title:'ลงล็อก POG / FEFO / สินค้าหลุดแกรม',desc:'ส่งรูปเบย์ + รูปกองสินค้าหลุดแกรม',          evidence:'photo',  passNote:'มีรูปตามที่กำหนดทุกจุด = ผ่าน',           coins:10},
+    {id:'m14',shift:'morning',block:'b6',deadline:'14:00',title:'ตรวจสอบยอดขาย',             desc:'ถ่ายรูป dashboard MVP ส่งยอดขาย',                         evidence:'photo',  passNote:'ส่งรูปยืนยันยอดขาย',                      coins:10},
+    {id:'m15',shift:'morning',block:'b6',deadline:'14:30',title:'ปิดกะ',                     desc:'ถ่ายรูปใบปิดกะที่ปริ้นจาก POS ส่งเงิน',                  evidence:'photo',  passNote:'ปิดกะครบทุก POS = ผ่าน',                  coins:15},
+    {id:'m16',shift:'morning',block:'b6',deadline:null,   title:'สรุปใบปิดกะเช้า',           desc:'ระบบส่งรายงานผลการทำงานกลับอัตโนมัติ',                   evidence:'system', passNote:'ระบบดำเนินการอัตโนมัติ',                  coins:0},
+    {id:'m17',shift:'morning',block:'b7',deadline:'14:45',title:'เลิกงานตรงเวลา',            desc:'ถ่ายรูปเซลฟี่กลับบ้านกับทีม',                           evidence:'photo',  passNote:'กลับบ้านตรงเวลา',                         coins:5},
+    // ── กะบ่าย ──────────────────────────────────────────────
+    {id:'a1',shift:'afternoon',block:'b8', deadline:'13:45',         title:'เปิดร้านและเช็คกำลังพล',      desc:'ถ่ายรูปเซลฟี่กับทีมกะบ่าย นับจำนวนคน',             evidence:'photo',  passNote:'จำนวนคนในรูปตรงกับตารางกะ',               coins:10},
+    {id:'a2',shift:'afternoon',block:'b8', deadline:'14:00',         title:'เปิดกะให้ทันก่อน 14:30',      desc:'ถ่ายรูปใบเปิดกะที่ปริ้นจาก POS',                    evidence:'photo',  passNote:'เปิดกะทุกเครื่อง POS ครบ',                 coins:10},
+    {id:'a3',shift:'afternoon',block:'b9', deadline:'16:00',         title:'เติมสินค้าตามรอบ',             desc:'ปิดงานเมนูเติมตามรอบ สินค้า 5 หมวดขายดี',           evidence:'confirm',passNote:'ไม่มี task ค้างในเมนูเติมตามรอบ',           coins:10},
+    {id:'a4',shift:'afternoon',block:'b9', deadline:'16:00',         title:'เติมหัวชั้น ตั้งกอง ให้เต็ม', desc:'รูปหัวชั้น ตั้งกอง ไม่มีรูโล่ง',                    evidence:'photo',  passNote:'หัวชั้น <2%, ตั้งกอง = 0% รูโล่ง',         coins:20},
+    {id:'a5',shift:'afternoon',block:'b9', deadline:null,            title:'แจ้งเตือน: จัดกำลังคนช่วงขายดี',desc:'ระบบส่งแจ้งเตือนให้ผู้ช่วยอัตโนมัติ',           evidence:'system', passNote:'ระบบดำเนินการอัตโนมัติ',                  coins:0},
+    {id:'a6',shift:'afternoon',block:'b10',deadline:'16:00',         title:'จัดกำลังคนตามมาตรฐานบริการ',  desc:'เปิด POS ตามจำนวนมาตรฐานบริการ',                     evidence:'confirm',passNote:'เปิด POS ครบตามมาตรฐาน = ผ่าน',             coins:5},
+    {id:'a7',shift:'afternoon',block:'b11',deadline:'18:00',         title:'ติดตามยอดขาย รอบ 18:00',       desc:'ถ่ายรูป dashboard MVP เพื่อแก้เกมส์',               evidence:'photo',  passNote:'ส่งรูปยืนยันยอดขาย',                      coins:10},
+    {id:'a8',shift:'afternoon',block:'b12',deadline:'21:00',         title:'หาสินค้าใกล้หมดอายุ – RTC',  desc:'รูปสินค้า RTC หรือยืนยันว่าไม่พบสินค้า',             evidence:'photo',  passNote:'มีการทำ RTC ครบ หรือยืนยันไม่พบ',           coins:15},
+    {id:'a9',shift:'afternoon',block:'b12',deadline:'22:00',         title:'เก็บป้ายโปรเก่า',              desc:'ถ่ายรูปกองป้ายที่เก็บแล้ว ระบุจำนวน',               evidence:'photo',  passNote:'มีรูปและจำนวนถูกต้อง = ผ่าน',              coins:10},
+    {id:'a10',shift:'afternoon',block:'b12',deadline:'22:00',        title:'เติมหัวชั้น ตั้งกอง ให้เต็ม', desc:'รูปหัวชั้น ตั้งกอง ตู้แช่เบียร์คาราบาว',            evidence:'photo',  passNote:'หัวชั้น <2%, ตั้งกอง = 0%',                coins:20},
+    {id:'a11',shift:'afternoon',block:'b12',deadline:'22:00',        title:'ตรวจสอบยอดขาย',               desc:'ถ่ายรูป dashboard MVP ส่งยอดขาย',                    evidence:'photo',  passNote:'ส่งรูปยืนยันยอดขาย',                      coins:10},
+    {id:'a12',shift:'afternoon',block:'b12',deadline:'22:00',        title:'ปิดกะ',                        desc:'ถ่ายรูปใบปิดกะที่ปริ้นจาก POS ส่งเงิน',             evidence:'photo',  passNote:'ปิดกะครบทุก POS = ผ่าน',                  coins:15},
+    {id:'a13',shift:'afternoon',block:'b12',deadline:'22:30',        title:'เลิกงานตรงเวลา',               desc:'ถ่ายรูปเซลฟี่กลับบ้านกับทีม',                       evidence:'photo',  passNote:'กลับบ้านตรงเวลา',                         coins:5},
+    {id:'a14',shift:'afternoon',block:'b13',deadline:'22:30/23:30',  title:'สรุปใบปิดกะบ่าย',              desc:'ระบบส่งรายงานผลการทำงานกลับอัตโนมัติ',              evidence:'system', passNote:'ระบบดำเนินการอัตโนมัติ',                  coins:0},
+  ];
+
+  BLOCKS = [
+    {id:'b1', label:'5:45 – 6:00',      shift:'morning'},
+    {id:'b2', label:'6:00 – 8:00',      shift:'morning'},
+    {id:'b3', label:'8:00 – 10:00',     shift:'morning'},
+    {id:'b4', label:'10:00 – 12:00',    shift:'morning'},
+    {id:'b5', label:'12:00 – 14:00',    shift:'morning'},
+    {id:'b6', label:'14:00 – 14:45',    shift:'morning'},
+    {id:'b7', label:'14:45',            shift:'morning'},
+    {id:'b8', label:'13:30 – 13:45',    shift:'afternoon'},
+    {id:'b9', label:'13:30 – 16:00',    shift:'afternoon'},
+    {id:'b10',label:'16:00 – 18:00',    shift:'afternoon'},
+    {id:'b11',label:'18:00 – 20:00',    shift:'afternoon'},
+    {id:'b12',label:'20:00 – ปิดร้าน',  shift:'afternoon'},
+    {id:'b13',label:'ปิดร้าน',          shift:'afternoon'},
+  ];
+
+  state = {
+    role: 'manager',
+    expandedBlocks: {},
+    taskStatuses: {},
+    attempts: {},
+    selectedTaskId: null,
+    submissionStep: null,
+    showDone: false,
+    isDesktop: false,
+  };
+
+  componentDidMount() {
+    const check = () => this.setState({ isDesktop: window.innerWidth >= 900 });
+    check();
+    window.addEventListener('resize', check);
+    this._cleanup = () => window.removeEventListener('resize', check);
+  }
+
+  componentWillUnmount() {
+    if (this._cleanup) this._cleanup();
+  }
+
+  toggleBlock(id) {
+    this.setState(s => ({
+      expandedBlocks: { ...s.expandedBlocks, [id]: s.expandedBlocks[id] !== false ? false : true }
+    }));
+  }
+
+  openTask(id) {
+    this.setState({ selectedTaskId: id, submissionStep: 'form' });
+  }
+
+  submitTask() {
+    const { selectedTaskId, attempts } = this.state;
+    if (!selectedTaskId) return;
+    this.setState({ submissionStep: 'processing' });
+    const cur = attempts[selectedTaskId] || 0;
+    const next = cur + 1;
+    setTimeout(() => {
+      const passed = next >= 2;
+      this.setState(s => ({
+        submissionStep: passed ? 'pass' : 'fail',
+        attempts: { ...s.attempts, [selectedTaskId]: next },
+        taskStatuses: { ...s.taskStatuses, [selectedTaskId]: passed ? 'pass' : 'fail' },
+      }));
+    }, 1800);
+  }
+
+  redoTask() { this.setState({ submissionStep: 'form' }); }
+
+  confirmDone() { this.setState({ selectedTaskId: null, submissionStep: null }); }
+
+  _taskDisplay(t) {
+    const status = this.state.taskStatuses[t.id] || 'pending';
+    const ev = t.evidence;
+    const evIcon = ev==='photo' ? 'add_a_photo' : ev==='confirm' ? 'task_alt' : 'auto_awesome';
+    const evBg   = ev==='photo' ? '#eaeff7' : ev==='system' ? '#f5f6f8' : '#e7f7ee';
+    const evFg   = ev==='photo' ? '#194793' : ev==='system' ? '#98a2b3' : '#009d4f';
+    const chips = {
+      pending: { label:'รอดำเนินการ', bg:'#f5f6f8', fg:'#7a8494', icon:'radio_button_unchecked' },
+      fail:    { label:'ต้องแก้ไข',    bg:'#fdebec', fg:'#ee2e3c', icon:'cancel'                  },
+      pass:    { label:'ผ่านแล้ว',      bg:'#e7f7ee', fg:'#009d4f', icon:'check_circle'            },
+    };
+    const chip = chips[status] || chips.pending;
+    const borderColor = status==='fail' ? '#ee2e3c' : status==='pass' ? '#009d4f' : '#e2e6ec';
+    const isSystem = ev === 'system';
+    return {
+      ...t,
+      status, evIcon,
+      evidenceBadgeStyle: { width:'28px', height:'28px', borderRadius:'7px', background:evBg, display:'inline-flex', alignItems:'center', justifyContent:'center', flexShrink:0 },
+      evidenceIconStyle: { fontSize:'15px', color:evFg },
+      chipLabel: chip.label,
+      chipIcon: chip.icon,
+      chipStyle: { fontSize:'11px', fontWeight:700, padding:'3px 8px', borderRadius:'999px', display:'inline-flex', alignItems:'center', gap:'3px', background:chip.bg, color:chip.fg, whiteSpace:'nowrap' },
+      cardStyle: { background:status==='pass'?'#f9fafb':'#fff', borderLeft:`4px solid ${borderColor}`, borderRadius:'10px', boxShadow:'0 1px 3px rgba(11,28,48,.07)', overflow:'hidden', cursor:isSystem?'default':'pointer' },
+      isSystem,
+      notSystem: !isSystem,
+      hasDeadline: !!t.deadline,
+      showDeadlineWarning: status === 'fail',
+      onClick: isSystem ? () => {} : () => this.openTask(t.id),
+    };
+  }
+
+  renderVals() {
+    const { role, expandedBlocks, taskStatuses, attempts, selectedTaskId, submissionStep, showDone, isDesktop } = this.state;
+
+    const visible = t => role==='manager' || t.shift===role;
+
+    const doneTasks = [];
+    const activeBlocks = [];
+
+    for (const b of this.BLOCKS) {
+      const bTasks = this.TASKS.filter(t => t.block===b.id && visible(t));
+      if (!bTasks.length) continue;
+      const active = bTasks.filter(t => taskStatuses[t.id] !== 'pass');
+      const passed = bTasks.filter(t => taskStatuses[t.id] === 'pass');
+      passed.forEach(t => doneTasks.push({ ...this._taskDisplay(t), timeBlockLabel: b.label }));
+      if (!active.length) continue;
+      const expanded = expandedBlocks[b.id] !== false;
+      const failCount = active.filter(t => taskStatuses[t.id]==='fail').length;
+      const hasFailures = failCount > 0;
+      activeBlocks.push({
+        id: b.id, label: b.label, expanded, toggleExpand: () => this.toggleBlock(b.id),
+        failCount, totalCount: active.length, hasFailures,
+        headerStyle: { display:'flex', alignItems:'center', justifyContent:'space-between', padding:'10px 14px', background:hasFailures?'#380c10':'#131b2e', borderRadius:expanded?'10px 10px 0 0':'10px', cursor:'pointer', width:'100%', fontFamily:"'Anuphan',system-ui,sans-serif", border:hasFailures?'1px solid rgba(238,46,60,.35)':'1px solid transparent', color:'#fff' },
+        tasksWrapStyle: { background:'#f0f2f5', padding:'8px', borderRadius:'0 0 10px 10px', border:'1px solid rgba(19,27,46,.1)', borderTop:'none', display:'flex', flexDirection:'column', gap:'8px' },
+        chevronStyle: { fontSize:'22px', color:'rgba(255,255,255,.6)', transform:expanded?'rotate(180deg)':'none', transition:'transform .2s' },
+        failBadgeStyle: { fontSize:'11px', fontWeight:700, padding:'3px 9px', borderRadius:'999px', background:'#ee2e3c', color:'#fff', display:'inline-flex', alignItems:'center', gap:'3px', whiteSpace:'nowrap' },
+        tasks: active.map(t => this._taskDisplay(t)),
+      });
+    }
+
+    const allV = this.TASKS.filter(visible);
+    const totalCount = allV.length;
+    const doneCount  = allV.filter(t => taskStatuses[t.id]==='pass').length;
+    const failCount  = allV.filter(t => taskStatuses[t.id]==='fail').length;
+    const pendingCount = totalCount - doneCount - failCount;
+
+    const rBtn = r => ({ padding:'6px 14px', border:'none', borderRadius:'999px', cursor:'pointer', fontFamily:"'Anuphan',system-ui,sans-serif", fontWeight:700, fontSize:'13px', background:role===r?'#131b2e':'#eef1f5', color:role===r?'#fff':'#5a6472', whiteSpace:'nowrap' });
+
+    const selTask = selectedTaskId ? this.TASKS.find(t=>t.id===selectedTaskId) : null;
+    const selAtt  = selectedTaskId ? (attempts[selectedTaskId]||0) : 0;
+
+    const phoneStyle = isDesktop
+      ? { position:'relative', width:'390px', height:'844px', background:'#f5f6f8', borderRadius:'44px', border:'12px solid #0e1622', boxShadow:'0 24px 48px rgba(0,0,0,.14)', display:'flex', flexDirection:'column', overflow:'hidden', flexShrink:0 }
+      : { position:'relative', width:'100%', maxWidth:'100vw', height:'100vh', background:'#f5f6f8', display:'flex', flexDirection:'column', overflow:'hidden' };
+    const outerStyle = isDesktop
+      ? { minHeight:'100vh', background:'#dde0e3', display:'flex', alignItems:'center', justifyContent:'center', padding:'20px' }
+      : { minHeight:'100vh', background:'#f5f6f8' };
+
+    return {
+      dateLabel: 'จันทร์ 28 พ.ค. 2569',
+      roleName: { manager:'ผู้จัดการร้าน', morning:'ผู้ช่วยเช้า', afternoon:'ผู้ช่วยบ่าย' }[role],
+      roleChipStyle: { padding:'4px 10px', background:'#f5f6f8', borderRadius:'999px', fontSize:'12px', fontWeight:600, color:'#3a4453', whiteSpace:'nowrap' },
+
+      setManager:  () => this.setState({ role:'manager' }),
+      setMorning:  () => this.setState({ role:'morning' }),
+      setAfternoon:() => this.setState({ role:'afternoon' }),
+      managerStyle:  rBtn('manager'),
+      morningStyle:  rBtn('morning'),
+      afternoonStyle:rBtn('afternoon'),
+
+      totalCount, pendingCount, failCount, doneCount,
+      activeBlockCount: activeBlocks.length,
+      timeBlocks: activeBlocks,
+
+      doneTasks,
+      hasDoneTasks: doneTasks.length > 0,
+      showDone,
+      toggleDone: () => this.setState(s=>({showDone:!s.showDone})),
+      doneChevStyle: { fontSize:'20px', color:'#5a6472', transform:showDone?'rotate(180deg)':'none', transition:'transform .2s' },
+
+      overlayOpen: !!selectedTaskId,
+      isFormStep:       submissionStep==='form',
+      isProcessingStep: submissionStep==='processing',
+      isPassStep:       submissionStep==='pass',
+      isFailStep:       submissionStep==='fail',
+      stopPropagation: e => e.stopPropagation(),
+      closeOverlay: () => this.setState({ selectedTaskId:null, submissionStep:null }),
+      submitTask:   () => this.submitTask(),
+      redoTask:     () => this.redoTask(),
+      confirmDone:  () => this.confirmDone(),
+
+      selTitle:    selTask ? selTask.title    : '',
+      selDesc:     selTask ? selTask.desc     : '',
+      selDeadline: selTask ? (selTask.deadline||'—') : '',
+      selPassNote: selTask ? selTask.passNote : '',
+      selCoins:    selTask ? selTask.coins    : 0,
+      selIsPhoto:  selTask ? selTask.evidence==='photo'   : false,
+      selIsConfirm:selTask ? selTask.evidence==='confirm' : false,
+      selAttempts: selAtt,
+      selIsRedone: selAtt > 0,
+      selAttemptsLabel: selAtt > 0 ? `ส่งใหม่ครั้งที่ ${selAtt + 1} — แก้ตามคำแนะนำก่อนส่ง` : '',
+
+      phoneStyle, outerStyle,
+    };
+  }
+}
+</script>
+</body>
+</html>
